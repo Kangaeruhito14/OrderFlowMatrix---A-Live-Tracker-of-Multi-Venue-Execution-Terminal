@@ -13,26 +13,52 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "Cryptographic Order Flow Matrix — BTCUSDT Live Terminal",
-  description: "Institutional-grade real-time crypto order flow terminal powered by the Binance live WebSocket trade stream for BTCUSDT.",
-  keywords: ["order flow", "BTCUSDT", "Binance", "trading terminal", "market microstructure", "order book", "real-time"],
-  authors: [{ name: "Order Flow Matrix" }],
-  icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Order Flow Matrix — Live Multi-Venue Crypto Execution Terminal",
+    template: "%s · Order Flow Matrix",
   },
+  description:
+    "A real-time crypto order-flow terminal that streams and visualizes live trades across Binance, Bybit, OKX, Bitget and KuCoin — trade matrix, order-book depth, CVD and block-trade alerts.",
+  applicationName: "Order Flow Matrix",
+  keywords: [
+    "order flow",
+    "crypto order flow",
+    "trade flow",
+    "market microstructure",
+    "CVD",
+    "cumulative volume delta",
+    "order book",
+    "block trades",
+    "Binance",
+    "Bybit",
+    "OKX",
+    "Bitget",
+    "KuCoin",
+    "crypto trading terminal",
+    "real-time market data",
+  ],
+  authors: [{ name: "Order Flow Matrix" }],
+  creator: "Order Flow Matrix",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Cryptographic Order Flow Matrix",
-    description: "Institutional dark-pool analytics terminal for BTCUSDT live execution flow.",
-    url: "https://chat.z.ai",
-    siteName: "Order Flow Matrix",
     type: "website",
+    siteName: "Order Flow Matrix",
+    title: "Order Flow Matrix — Live Multi-Venue Crypto Execution Terminal",
+    description:
+      "Real-time crypto order-flow across Binance, Bybit, OKX, Bitget and KuCoin in one dense terminal.",
+    url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cryptographic Order Flow Matrix",
-    description: "Institutional dark-pool analytics terminal for BTCUSDT live execution flow.",
+    title: "Order Flow Matrix",
+    description:
+      "Real-time crypto order-flow across Binance, Bybit, OKX, Bitget and KuCoin.",
   },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
