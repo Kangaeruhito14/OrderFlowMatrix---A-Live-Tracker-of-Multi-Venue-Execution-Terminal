@@ -26,15 +26,15 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - [ ] **Bootstrap:** `order-flow.css` still imports full Bootstrap CSS — evaluate removing once layout is confirmed Tailwind-only.
 - [ ] **Branding:** package still named `nextjs_tailwind_shadcn_ts` — renamed in Phase 1.
 
-## Phase 1 — Branding & metadata  ← current
-- [ ] Rename package; set product name/brand across metadata
-- [ ] `layout.tsx`: `metadataBase`, title template, accurate multi-venue description
-- [ ] Local favicon set (drop external z-cdn icon) + `manifest.ts`
-- [ ] Correct OpenGraph/Twitter (own domain), canonical, dynamic `opengraph-image`
-- [ ] "Not financial advice" disclaimer component (footer + terminal)
-- [ ] Verify: metadata renders, no external icon dependency
+## Phase 1 — Branding & metadata  ✅ DONE
+- [x] Rename package to `order-flow-matrix`; brand set across metadata
+- [x] `layout.tsx`: `metadataBase` (env `NEXT_PUBLIC_SITE_URL`, localhost fallback), title template, accurate multi-venue description, robots
+- [x] Local favicon (`app/icon.svg`, drop external z-cdn icon) + `app/manifest.ts`
+- [x] Correct OpenGraph/Twitter + canonical + dynamic `app/opengraph-image.tsx`
+- [x] "Not financial advice" `Disclaimer` component (built; wired into footer in Phase 2)
+- [x] Verify: `tsc` + `next build` green; `/icon.svg`, `/manifest.webmanifest`, `/opengraph-image` routes generated
 
-## Phase 2 — Content & trust pages
+## Phase 2 — Content & trust pages  ← current
 - [ ] Marketing route group with header/footer layout
 - [ ] Home (real landing), About, Contact (form), Privacy, Terms, Disclaimer
 - [ ] Move terminal to `/terminal` (or embed on home as an island)
