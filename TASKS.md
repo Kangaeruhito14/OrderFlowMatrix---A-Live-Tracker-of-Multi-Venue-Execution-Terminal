@@ -8,18 +8,25 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 
 ---
 
-## Phase 0 — Decommission scaffold & secure  ← current
-- [ ] Remove Socket.IO chat scaffold (`examples/websocket/`)
-- [ ] Remove Prisma/SQLite scaffold (`prisma/`, `src/lib/db.ts`, local `db/`)
-- [ ] Remove placeholder API route (`src/app/api/route.ts`)
-- [ ] Harden trades CORS proxy: strict symbol allowlist, rate limit, short cache, origin check
-- [ ] Prune unused dependencies (grep-verified zero-import packages) + drop `ui/chart.tsx`
-- [ ] Migrate tooling bun → npm (scripts + lockfile) for portability
-- [ ] Secure `next.config.ts`: remove `ignoreBuildErrors`, enable strict mode, add security headers
-- [ ] Stop tracking non-code artifacts (.env, screenshots, agent context) via `.gitignore`
-- [ ] Verify: `npm install` clean, `tsc --noEmit` passes, `next build` succeeds, lint clean
+## Phase 0 — Decommission scaffold & secure  ✅ DONE
+- [x] Remove Socket.IO chat scaffold (`examples/websocket/`)
+- [x] Remove Prisma/SQLite scaffold (`prisma/`, `src/lib/db.ts`, local `db/`)
+- [x] Remove placeholder API route (`src/app/api/route.ts`)
+- [x] Harden trades CORS proxy: strict symbol allowlist, rate limit, short cache, origin check
+- [x] Prune unused dependencies (24 grep-verified zero-import packages) + drop 4 leaf UI components
+- [x] Migrate tooling bun → npm (scripts + lockfile) for portability
+- [x] Secure `next.config.ts`: remove `ignoreBuildErrors`, enable strict mode, add security headers
+- [x] Stop tracking non-code artifacts (.env, screenshots, agent context, Caddyfile, .zscripts) via `.gitignore`
+- [x] Verify: `npm install` clean, `tsc --noEmit` passes (4 latent type bugs fixed), `next build` succeeds
 
-## Phase 1 — Branding & metadata
+### Deferred out of Phase 0 (tracked, not silently dropped)
+- [ ] **Lint:** 4 pre-existing `react-hooks/set-state-in-effect` errors (e.g. `use-mobile.ts`) — refactor in Phase 6 (does not block build).
+- [ ] **CSP:** add a Content-Security-Policy that enumerates every exchange WS/REST origin, then test against the live terminal.
+- [ ] **npm audit:** 2 moderate transitive `postcss` advisories via `next`; resolve by upgrading Next when patched (no breaking downgrade).
+- [ ] **Bootstrap:** `order-flow.css` still imports full Bootstrap CSS — evaluate removing once layout is confirmed Tailwind-only.
+- [ ] **Branding:** package still named `nextjs_tailwind_shadcn_ts` — renamed in Phase 1.
+
+## Phase 1 — Branding & metadata  ← current
 - [ ] Rename package; set product name/brand across metadata
 - [ ] `layout.tsx`: `metadataBase`, title template, accurate multi-venue description
 - [ ] Local favicon set (drop external z-cdn icon) + `manifest.ts`
