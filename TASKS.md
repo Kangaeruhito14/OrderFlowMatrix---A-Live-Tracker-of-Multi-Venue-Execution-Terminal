@@ -1,0 +1,75 @@
+# Order Flow Matrix — Build & Test Task Board
+
+Phase-by-phase plan. Each task is checked off only after it is **implemented,
+re-checked, and verified** (build/typecheck/lint or manual test). Work happens on
+`building-and-testing`; `main` is not touched until a phase set is approved.
+
+Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
+
+---
+
+## Phase 0 — Decommission scaffold & secure  ← current
+- [ ] Remove Socket.IO chat scaffold (`examples/websocket/`)
+- [ ] Remove Prisma/SQLite scaffold (`prisma/`, `src/lib/db.ts`, local `db/`)
+- [ ] Remove placeholder API route (`src/app/api/route.ts`)
+- [ ] Harden trades CORS proxy: strict symbol allowlist, rate limit, short cache, origin check
+- [ ] Prune unused dependencies (grep-verified zero-import packages) + drop `ui/chart.tsx`
+- [ ] Migrate tooling bun → npm (scripts + lockfile) for portability
+- [ ] Secure `next.config.ts`: remove `ignoreBuildErrors`, enable strict mode, add security headers
+- [ ] Stop tracking non-code artifacts (.env, screenshots, agent context) via `.gitignore`
+- [ ] Verify: `npm install` clean, `tsc --noEmit` passes, `next build` succeeds, lint clean
+
+## Phase 1 — Branding & metadata
+- [ ] Rename package; set product name/brand across metadata
+- [ ] `layout.tsx`: `metadataBase`, title template, accurate multi-venue description
+- [ ] Local favicon set (drop external z-cdn icon) + `manifest.ts`
+- [ ] Correct OpenGraph/Twitter (own domain), canonical, dynamic `opengraph-image`
+- [ ] "Not financial advice" disclaimer component (footer + terminal)
+- [ ] Verify: metadata renders, no external icon dependency
+
+## Phase 2 — Content & trust pages
+- [ ] Marketing route group with header/footer layout
+- [ ] Home (real landing), About, Contact (form), Privacy, Terms, Disclaimer
+- [ ] Move terminal to `/terminal` (or embed on home as an island)
+- [ ] Verify: all routes server-render with correct metadata
+
+## Phase 3 — Evergreen "Learn" content
+- [ ] MDX setup; articles: order flow, CVD, reading the matrix, block trades
+- [ ] Microstructure glossary
+- [ ] Cross-link content ↔ live terminal
+- [ ] Verify: content is server-rendered & indexable
+
+## Phase 4 — Programmatic market pages + technical SEO
+- [ ] `/markets/[exchange]/[symbol]` SSR pages + `generateStaticParams` for top pairs
+- [ ] `app/sitemap.ts` (dynamic) + `app/robots.ts` (disallow `/api`, add Sitemap)
+- [ ] JSON-LD: Organization, WebSite, SoftwareApplication, FAQPage, Breadcrumb, Article
+- [ ] Per-page canonical + OG via `generateMetadata`
+- [ ] **Expand coin/category coverage** — as many coins, spot + perps, categories as feasible
+- [ ] Verify: sitemap valid, rich-results test passes
+
+## Phase 5 — LLM-SEO
+- [ ] `public/llms.txt` + `llms-full.txt`
+- [ ] Semantic HTML + FAQ schema + clear headings on content pages
+- [ ] Ensure LLM-crawlable (server-rendered) content
+- [ ] Verify: llms.txt reachable; content readable without JS
+
+## Phase 6 — Performance & correctness
+- [ ] Virtualize trade matrix; batch high-frequency updates (refs/rAF)
+- [ ] Pool/cap comparison-mode connections
+- [ ] `next/image` for images; lazy-load below the fold
+- [ ] Core Web Vitals pass (web-perf)
+- [ ] Tests: Vitest for adapter normalization (timestamp/side); Playwright smoke
+- [ ] Verify: CWV green, tests pass in CI
+
+## Phase 7 — Commercialization scaffolding
+- [ ] Privacy-friendly analytics + cookie consent
+- [ ] Contact form delivery (email) + Turnstile bot protection
+- [ ] Define paid wedge (e.g. cross-venue block-trade alerts) before adding accounts/quota
+- [ ] Verify: form delivers, bot protection active
+
+---
+
+### Working rules
+- Granular commits: one logical change per commit, message describes the file/intent.
+- After each change: re-check and re-test; update this board and any affected docs.
+- No overclaiming in copy or commits — describe exactly what was done.
