@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import type { MultiStreamStats } from './useMultiExchangeStream'
-import { fmtQty, fmtNotional, fmtBps, fmtPrice } from './format'
+import { fmtQty, fmtNotional, fmtPrice } from './format'
 import { useSymbolConfig } from './SymbolContext'
 
 interface Props {
@@ -46,7 +46,6 @@ export default function StreamIntensity({ stats }: Props) {
     windowTradeCount,
     avgTradeSize,
     vwap,
-    spreadBps,
     minPriceInWindow,
     maxPriceInWindow,
     lastPrice,
@@ -154,10 +153,6 @@ export default function StreamIntensity({ stats }: Props) {
           <div className="of-ii-strip-cell">
             <span className="of-ii-label">VWAP</span>
             <span className="of-ii-strip-val">{fmtPrice(vwap, cfg.priceDigits)}</span>
-          </div>
-          <div className="of-ii-strip-cell">
-            <span className="of-ii-label">Spread</span>
-            <span className="of-ii-strip-val">{fmtBps(spreadBps)}</span>
           </div>
           <div className="of-ii-strip-cell">
             <span className="of-ii-label">Range</span>

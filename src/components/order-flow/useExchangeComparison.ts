@@ -78,7 +78,7 @@ export interface ExchangeComparisonState {
 export function useExchangeComparison(
   base: string,
   quote: string,
-  exchanges: ExchangeId[],
+  exchanges: readonly ExchangeId[],
   enabled: boolean,
 ): ExchangeComparisonState {
   // ---- Always-on 5 hook calls (rules of hooks) ---------------------------
@@ -114,7 +114,7 @@ export function useExchangeComparison(
     // so re-renders with a new array identity (but same contents) still
     // produce equivalent state. The deps array below lists `exchanges`
     // directly to satisfy the React Compiler's dependency inference.
-    const included: ExchangeId[] = exchanges
+    const included: readonly ExchangeId[] = exchanges
     const includedSet = new Set(included)
 
     // ---- Build one row per exchange in the comparison set ----------------

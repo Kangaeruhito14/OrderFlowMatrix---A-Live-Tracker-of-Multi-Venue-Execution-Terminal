@@ -42,7 +42,7 @@ export default function StreamHealth({ stats, now }: Props) {
   useEffect(() => {
     const id = setInterval(() => {
       const t = Date.now()
-      const lastMsgAt = stats.lastMessageAt
+      const lastMsgAt = stats.lastTradeTime
       let gap = 1.0 // default healthy (green) when no data yet
       if (lastMsgAt !== null) {
         gap = (t - lastMsgAt) / 1000
