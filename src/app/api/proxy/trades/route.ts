@@ -3,20 +3,82 @@ import { NextRequest, NextResponse } from 'next/server'
 /**
  * REST proxy for exchanges that block browser CORS (KuCoin, Bybit).
  *
- * GET /api/proxy/trades?exchange=kucoin&symbol=BTC-USDT
- * GET /api/proxy/trades?exchange=bybit&symbol=BTCUSDT
+ *   GET /api/proxy/trades?exchange=kucoin&symbol=BTC-USDT
+ *   GET /api/proxy/trades?exchange=bybit&symbol=BTCUSDT
  *
- * The proxy adds the appropriate CORS headers and forwards the request
- * server-side, avoiding browser CORS restrictions.
+ * The proxy forwards the request server-side to a fixed, allow-listed upstream so
+ * the browser never hits the venue directly. Hardened against abuse:
+ *   - exchange is allow-listed (only the venues below)
+ *   - symbol is validated against a strict pattern (no query/path injection)
+ *   - per-IP fixed-window rate limit (per server instance)
+ *   - same-origin enforced when an Origin header is present (no cross-site relay)
+ *   - short shared cache instead of no-store (cuts upstream load and ban risk)
  */
 
+export const runtime = 'nodejs'
+
+// Only these venues, and only this exact upstream path per venue.
 const EXCHANGE_URLS: Record<string, (symbol: string) => string> = {
   kucoin: (symbol) => `https://api.kucoin.com/api/v1/market/histories?symbol=${symbol}`,
   bybit: (symbol) => `https://api.bybit.com/v5/market/recent-trade?category=spot&symbol=${symbol}`,
 }
 
+// Accepts BTCUSDT, BTC-USDT, 1INCHUSDT, etc. Rejects anything with separators that
+// could inject extra query params or path segments.
+const SYMBOL_RE = /^[A-Z0-9]{2,15}(-[A-Z0-9]{2,15})?$/
+
+// --- simple in-memory fixed-window rate limiter (per server instance) ---
+const RATE_LIMIT = 30 // requests
+const RATE_WINDOW_MS = 10_000 // per 10s
+const hits = new Map<string, { count: number; resetAt: number }>()
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now()
+  const entry = hits.get(ip)
+  if (!entry || now > entry.resetAt) {
+    hits.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    return false
+  }
+  entry.count += 1
+  return entry.count > RATE_LIMIT
+}
+
+// Opportunistically drop stale buckets so the map can't grow unbounded.
+function sweep() {
+  if (hits.size < 5000) return
+  const now = Date.now()
+  for (const [k, v] of hits) if (now > v.resetAt) hits.delete(k)
+}
+
+function clientIp(request: NextRequest): string {
+  const fwd = request.headers.get('x-forwarded-for')
+  if (fwd) return fwd.split(',')[0].trim()
+  return request.headers.get('x-real-ip') ?? 'unknown'
+}
+
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url)
+  // Block cross-site browser use: if an Origin is sent, it must match our host.
+  const origin = request.headers.get('origin')
+  if (origin) {
+    try {
+      if (new URL(origin).host !== request.nextUrl.host) {
+        return NextResponse.json({ error: 'Cross-origin requests are not allowed' }, { status: 403 })
+      }
+    } catch {
+      return NextResponse.json({ error: 'Invalid origin' }, { status: 403 })
+    }
+  }
+
+  sweep()
+  const ip = clientIp(request)
+  if (rateLimited(ip)) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded' },
+      { status: 429, headers: { 'Retry-After': String(Math.ceil(RATE_WINDOW_MS / 1000)) } }
+    )
+  }
+
+  const { searchParams } = request.nextUrl
   const exchange = searchParams.get('exchange')
   const symbol = searchParams.get('symbol')
 
@@ -27,6 +89,10 @@ export async function GET(request: NextRequest) {
   const urlBuilder = EXCHANGE_URLS[exchange]
   if (!urlBuilder) {
     return NextResponse.json({ error: `Unsupported exchange: ${exchange}` }, { status: 400 })
+  }
+
+  if (!SYMBOL_RE.test(symbol)) {
+    return NextResponse.json({ error: 'Invalid symbol format' }, { status: 400 })
   }
 
   try {
@@ -44,12 +110,12 @@ export async function GET(request: NextRequest) {
     }
 
     const text = await res.text()
-    // Return the raw JSON with proper content type
     return new NextResponse(text, {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-store',
+        // Short shared cache: collapses bursts of identical polls into one upstream hit.
+        'Cache-Control': 'public, max-age=1, s-maxage=2',
       },
     })
   } catch (e) {
