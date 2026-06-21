@@ -34,13 +34,20 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - [x] "Not financial advice" `Disclaimer` component (built; wired into footer in Phase 2)
 - [x] Verify: `tsc` + `next build` green; `/icon.svg`, `/manifest.webmanifest`, `/opengraph-image` routes generated
 
-## Phase 2 — Content & trust pages  ← current
-- [ ] Marketing route group with header/footer layout
-- [ ] Home (real landing), About, Contact (form), Privacy, Terms, Disclaimer
-- [ ] Move terminal to `/terminal` (or embed on home as an island)
-- [ ] Verify: all routes server-render with correct metadata
+## Phase 2 — Content & trust pages  ✅ DONE
+- [x] Marketing route group `(marketing)` with shared header/footer layout (dark site-wide)
+- [x] Home (real landing: hero, features, adapter story, honest framing, CTAs)
+- [x] About, Contact, Privacy, Terms, Disclaimer pages (each with SEO metadata + canonical)
+- [x] Move terminal to `/terminal`; `/` is now the marketing home
+- [x] Disclaimer component wired into the footer; "not financial advice" sitewide
+- [x] Contact form (react-hook-form) — opens a pre-filled `mailto:` (hosted form + Turnstile in Phase 7)
+- [x] Verify: `tsc` + `next build` green; prod server returns 200 on all routes; titles/headers confirmed
 
-## Phase 3 — Evergreen "Learn" content
+### Notes
+- Contact email is env-driven (`NEXT_PUBLIC_CONTACT_EMAIL`).
+- Legal pages are solid templates; have a professional review them before a real launch.
+
+## Phase 3 — Evergreen "Learn" content  ← current
 - [ ] MDX setup; articles: order flow, CVD, reading the matrix, block trades
 - [ ] Microstructure glossary
 - [ ] Cross-link content ↔ live terminal
