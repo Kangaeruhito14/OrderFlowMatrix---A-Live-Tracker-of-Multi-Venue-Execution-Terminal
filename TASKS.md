@@ -93,11 +93,26 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - [ ] Core Web Vitals (Lighthouse) — favorable factors in place (next/font, no CLS images, static content pages, memoized terminal); run against a deployed URL.
 - [ ] Playwright smoke test of the terminal — unit tests already cover the regression-prone normalization logic.
 
-## Phase 7 — Commercialization scaffolding  ← current
-- [ ] Privacy-friendly analytics + cookie consent
-- [ ] Contact form delivery (email) + Turnstile bot protection
-- [ ] Define paid wedge (e.g. cross-venue block-trade alerts) before adding accounts/quota
-- [ ] Verify: form delivers, bot protection active
+## Phase 7 — Commercialization scaffolding  ✅ DONE
+- [x] Cookieless, privacy-friendly analytics (Plausible-compatible, env-gated) behind a consent banner
+- [x] Hosted contact API: validation + per-IP rate limit + optional Turnstile verify + optional webhook delivery
+- [x] Reusable Turnstile widget (env-gated); ContactForm posts to the API with a `mailto:` fallback when delivery isn't configured
+- [x] Paid wedge defined + scaffolded: `/alerts` block-trade waitlist (email capture, no payment)
+- [x] Privacy policy updated (cookieless analytics, Turnstile, form delivery); Alerts added to nav + sitemap
+- [x] Verify: build + tsc + 11 tests green; API returns correct 400 / 403 / 429 / 200 + `delivery_not_configured` fallback
+
+### To go live (your keys — all optional, site works without them)
+- `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` (+ optional `NEXT_PUBLIC_PLAUSIBLE_SRC`) — enable analytics
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` + `TURNSTILE_SECRET_KEY` — enable bot protection
+- `CONTACT_WEBHOOK_URL` — deliver form/waitlist submissions (Discord/Slack/Zapier/n8n, all free)
+- Deferred until the wedge shows demand: payments + accounts/quota.
+
+---
+
+## 🎉 Phases 0–7 complete
+Decommission + security → branding → content/trust pages → Learn content → programmatic
+market pages + technical SEO → LLM-SEO → performance & tests → commercialization scaffolding.
+Set a domain (`NEXT_PUBLIC_SITE_URL`) and deploy to make SEO/LLM discovery real.
 
 ---
 
