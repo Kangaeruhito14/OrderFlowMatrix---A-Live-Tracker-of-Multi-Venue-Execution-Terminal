@@ -73,13 +73,15 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - FAQPage / Article / DefinedTerm JSON-LD → Phase 5 (LLM-SEO).
 - Benign build warning: Binance all-tickers response (~2.4MB) exceeds Next's 2MB fetch-cache limit; data is still used, build succeeds.
 
-## Phase 5 — LLM-SEO  ← current
-- [ ] `public/llms.txt` + `llms-full.txt`
-- [ ] Semantic HTML + FAQ schema + clear headings on content pages
-- [ ] Ensure LLM-crawlable (server-rendered) content
-- [ ] Verify: llms.txt reachable; content readable without JS
+## Phase 5 — LLM-SEO  ✅ DONE
+- [x] `llms.txt` + `llms-full.txt` as dynamic route handlers (in sync with the article/glossary/FAQ registries)
+- [x] Structured data: FAQPage (`/faq`), DefinedTermSet (glossary), Article (each Learn post)
+- [x] FAQ page added; glossary + FAQ extracted to `src/lib` as single source of truth
+- [x] Semantic HTML, one `<h1>` per page, clear headings; all content server-rendered (LLM-crawlable)
+- [x] AI/LLM crawlers allowed via `robots.ts` (allow all, only `/api` disallowed)
+- [x] Verify: `/llms.txt` + `/llms-full.txt` serve `text/plain`; JSON-LD present; build + tsc green
 
-## Phase 6 — Performance & correctness
+## Phase 6 — Performance & correctness  ← current
 - [ ] Virtualize trade matrix; batch high-frequency updates (refs/rAF)
 - [ ] Pool/cap comparison-mode connections
 - [ ] `next/image` for images; lazy-load below the fold
