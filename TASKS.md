@@ -47,13 +47,19 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - Contact email is env-driven (`NEXT_PUBLIC_CONTACT_EMAIL`).
 - Legal pages are solid templates; have a professional review them before a real launch.
 
-## Phase 3 — Evergreen "Learn" content  ← current
-- [ ] MDX setup; articles: order flow, CVD, reading the matrix, block trades
-- [ ] Microstructure glossary
-- [ ] Cross-link content ↔ live terminal
-- [ ] Verify: content is server-rendered & indexable
+## Phase 3 — Evergreen "Learn" content  ✅ DONE
+- [x] MDX setup (`@next/mdx`, `pageExtensions`, `src/mdx-components.tsx`)
+- [x] Learn index (`/learn`) + article registry (`articles.ts`)
+- [x] 4 MDX articles: order flow, CVD, reading the matrix, block trades
+- [x] Microstructure glossary (`/learn/glossary`, data-driven for future DefinedTerm schema)
+- [x] Cross-link content ↔ terminal; Learn added to header + footer nav
+- [x] Verify: `tsc` + `next build` green (19 routes); all Learn routes 200; MDX metadata renders correct titles
 
-## Phase 4 — Programmatic market pages + technical SEO
+### Notes
+- Add an article: create `learn/<slug>/page.mdx` (with `export const metadata`) **and** a registry entry in `articles.ts`.
+- Article/DefinedTerm JSON-LD comes in Phase 4–5; the registry + glossary are structured for it.
+
+## Phase 4 — Programmatic market pages + technical SEO  ← current
 - [ ] `/markets/[exchange]/[symbol]` SSR pages + `generateStaticParams` for top pairs
 - [ ] `app/sitemap.ts` (dynamic) + `app/robots.ts` (disallow `/api`, add Sitemap)
 - [ ] JSON-LD: Organization, WebSite, SoftwareApplication, FAQPage, Breadcrumb, Article
