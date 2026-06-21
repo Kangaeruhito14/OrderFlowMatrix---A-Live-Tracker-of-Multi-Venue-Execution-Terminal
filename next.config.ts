@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 // Baseline security headers applied to every route. A full Content-Security-Policy
 // is intentionally deferred: it must enumerate every exchange WebSocket/REST origin
@@ -16,6 +17,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Allow .md/.mdx files to be treated as pages/routes.
+  pageExtensions: ["ts", "tsx", "md", "mdx"],
   reactStrictMode: true,
   poweredByHeader: false,
   async headers() {
@@ -23,4 +26,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);
