@@ -29,12 +29,24 @@ import ExchangeSelector from './ExchangeSelector'
 import { useKeyboardShortcuts } from './useKeyboardShortcuts'
 import KeyboardShortcutsOverlay from './KeyboardShortcutsOverlay'
 
-export default function OrderFlowTerminal() {
-  // Multi-exchange state
-  const [exchange, setExchange] = useState<ExchangeId>('binance')
-  const [base, setBase] = useState('BTC')
-  const [quote, setQuote] = useState('USDT')
-  const [category, setCategory] = useState<MarketCategory>('spot')
+interface OrderFlowTerminalProps {
+  initialExchange?: ExchangeId
+  initialBase?: string
+  initialQuote?: string
+  initialCategory?: MarketCategory
+}
+
+export default function OrderFlowTerminal({
+  initialExchange = 'binance',
+  initialBase = 'BTC',
+  initialQuote = 'USDT',
+  initialCategory = 'spot',
+}: OrderFlowTerminalProps = {}) {
+  // Multi-exchange state (initial values can be deep-linked from /markets pages)
+  const [exchange, setExchange] = useState<ExchangeId>(initialExchange)
+  const [base, setBase] = useState(initialBase)
+  const [quote, setQuote] = useState(initialQuote)
+  const [category, setCategory] = useState<MarketCategory>(initialCategory)
   const [interval, setInterval_] = useState<KlineInterval>('1m')
   const [paused, setPaused] = useState(false)
   const [globalFreeze, setGlobalFreeze] = useState(false)
