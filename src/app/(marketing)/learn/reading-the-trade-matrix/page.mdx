@@ -1,0 +1,56 @@
+export const metadata = {
+  title: "Reading the Trade Matrix",
+  description:
+    "What every column and color in a live trade blotter means, and the order-flow patterns worth watching across venues.",
+  alternates: { canonical: "/learn/reading-the-trade-matrix" },
+};
+
+# Reading the Trade Matrix
+
+The **trade matrix** is the live blotter at the center of the terminal — one row per
+executed trade, newest on top. Once you can read it quickly, you can feel a market's
+rhythm without looking at a chart.
+
+## The columns
+
+- **Time** — when the trade executed.
+- **Symbol** — the traded pair (e.g. BTCUSDT).
+- **Venue** — which exchange the print came from (useful in multi-venue view).
+- **Price** — the execution price.
+- **Quantity** — size in the base asset.
+- **Side** — inferred aggressor: **buy** (green) or **sell** (red).
+- **Notional** — size in quote currency (price × quantity); the fastest way to gauge how
+  *big* a print really is.
+
+## The colors and the flash
+
+Each row is color-coded by side — green for aggressive buys, red for aggressive sells —
+and **flashes briefly** as it arrives, then settles. The flash is deliberate: it lets you
+register *direction and size* peripherally while reading something else.
+
+## Patterns worth watching
+
+- **Bursts** — a rapid cluster of same-side prints: a wave of initiative.
+- **Large prints** — a single big notional row stands out; see
+  [block trades](/learn/block-trades-and-whale-detection).
+- **One-sided flow** — a run of red (or green) with little of the other color: strong
+  short-term pressure.
+- **Ladders** — many prints walking up (or down) through prices: someone clearing
+  multiple levels of the book.
+- **Stall at a price** — heavy same-price prints that don't move price:
+  possible [absorption](/learn/cumulative-volume-delta).
+
+## Reading across venues
+
+In multi-venue mode the **venue** column matters. If one exchange consistently prints
+first or larger, that's where initiative is concentrated. Cross-venue divergence in tempo
+is itself a signal — and the reason the comparison view exists.
+
+## Tips
+
+- Use **focus / lock mode** to isolate one instrument when it gets busy.
+- Build a **watchlist** so you can jump between the pairs you actually care about.
+- Don't fight the firehose — widen the window or pause when you need to study a moment.
+
+Ready? [Open the terminal](/terminal) and watch a liquid pair for a few minutes. Then read
+[what order flow is](/learn/what-is-order-flow) to connect the dots.
