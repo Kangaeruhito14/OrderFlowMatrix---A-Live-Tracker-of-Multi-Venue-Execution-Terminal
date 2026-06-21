@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import JsonLd from "@/components/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,6 +62,34 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// Site-wide structured data for search engines and LLM crawlers.
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Order Flow Matrix",
+    url: siteUrl,
+    logo: `${siteUrl}/logo.svg`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Order Flow Matrix",
+    url: siteUrl,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Order Flow Matrix",
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Web",
+    url: siteUrl,
+    description:
+      "Real-time crypto order-flow terminal across Binance, Bybit, OKX, Bitget and KuCoin.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  },
+];
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -71,6 +100,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
+        <JsonLd data={structuredData} />
         {children}
         <Toaster />
       </body>
