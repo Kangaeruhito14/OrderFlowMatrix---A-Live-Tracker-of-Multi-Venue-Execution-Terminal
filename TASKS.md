@@ -59,15 +59,21 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - Add an article: create `learn/<slug>/page.mdx` (with `export const metadata`) **and** a registry entry in `articles.ts`.
 - Article/DefinedTerm JSON-LD comes in Phase 4–5; the registry + glossary are structured for it.
 
-## Phase 4 — Programmatic market pages + technical SEO  ← current
-- [ ] `/markets/[exchange]/[symbol]` SSR pages + `generateStaticParams` for top pairs
-- [ ] `app/sitemap.ts` (dynamic) + `app/robots.ts` (disallow `/api`, add Sitemap)
-- [ ] JSON-LD: Organization, WebSite, SoftwareApplication, FAQPage, Breadcrumb, Article
-- [ ] Per-page canonical + OG via `generateMetadata`
-- [ ] **Expand coin/category coverage** — as many coins, spot + perps, categories as feasible
-- [ ] Verify: sitemap valid, rich-results test passes
+## Phase 4 — Programmatic market pages + technical SEO  ✅ DONE
+- [x] `/markets/[exchange]/[symbol]` hybrid: top ~30 USDT pairs/venue pre-rendered (≈132 pages) + any valid symbol on-demand (`dynamicParams`) + ISR (`revalidate`) + static fallback
+- [x] Server market-data module (`src/lib/markets.ts`): live top-pairs + summary across 5 venues, build never depends on an exchange being up (Bybit fell back, as designed)
+- [x] `/markets` hub + deep-link from market pages into the terminal (`?exchange&base&quote`)
+- [x] `app/sitemap.ts` (dynamic: marketing + learn + market pages) + `app/robots.ts` (disallow `/api`, Sitemap); removed static `robots.txt`
+- [x] JSON-LD: Organization, WebSite, SoftwareApplication (sitewide) + BreadcrumbList (market pages)
+- [x] Per-page canonical + title via `generateMetadata`
+- [x] Verify: build 154 routes; on-demand renders + invalid → 404; sitemap/robots serve correctly
 
-## Phase 5 — LLM-SEO
+### Notes / deferred
+- Coverage is USDT **spot** only for now. Perpetuals + non-USDT quotes = future expansion.
+- FAQPage / Article / DefinedTerm JSON-LD → Phase 5 (LLM-SEO).
+- Benign build warning: Binance all-tickers response (~2.4MB) exceeds Next's 2MB fetch-cache limit; data is still used, build succeeds.
+
+## Phase 5 — LLM-SEO  ← current
 - [ ] `public/llms.txt` + `llms-full.txt`
 - [ ] Semantic HTML + FAQ schema + clear headings on content pages
 - [ ] Ensure LLM-crawlable (server-rendered) content
