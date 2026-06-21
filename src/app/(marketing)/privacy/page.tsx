@@ -48,9 +48,11 @@ export default function PrivacyPage() {
 
       <Section heading="Analytics & cookies">
         <p>
-          We currently do not use advertising cookies or third-party analytics trackers.
-          If we introduce privacy-friendly, cookieless analytics in future, we will update
-          this policy and, where required, ask for your consent.
+          We do not use advertising cookies or cross-site trackers. We may use
+          privacy-friendly, <strong>cookieless</strong> analytics (such as Plausible) that
+          set no cookies and collect no personal data — and only after you accept the
+          consent notice shown on your first visit. You can decline, and you can change your
+          mind by clearing this site&apos;s browser storage.
         </p>
       </Section>
 
@@ -59,6 +61,12 @@ export default function PrivacyPage() {
           Live prices and trades come directly from third-party exchanges (Binance, Bybit,
           OKX, Bitget, KuCoin). Your use of their data is also subject to their own terms
           and privacy policies. We are not affiliated with these exchanges.
+        </p>
+        <p>
+          Our contact and waitlist forms may use Cloudflare Turnstile for bot protection,
+          which processes limited technical signals to confirm you are human. Submitted
+          messages may be delivered to an operational channel (for example, a webhook) so we
+          can read and respond to them.
         </p>
       </Section>
 
