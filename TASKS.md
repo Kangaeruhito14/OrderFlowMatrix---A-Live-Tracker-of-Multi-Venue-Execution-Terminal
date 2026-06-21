@@ -81,15 +81,19 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - [x] AI/LLM crawlers allowed via `robots.ts` (allow all, only `/api` disallowed)
 - [x] Verify: `/llms.txt` + `/llms-full.txt` serve `text/plain`; JSON-LD present; build + tsc green
 
-## Phase 6 — Performance & correctness  ← current
-- [ ] Virtualize trade matrix; batch high-frequency updates (refs/rAF)
-- [ ] Pool/cap comparison-mode connections
-- [ ] `next/image` for images; lazy-load below the fold
-- [ ] Core Web Vitals pass (web-perf)
-- [ ] Tests: Vitest for adapter normalization (timestamp/side); Playwright smoke
-- [ ] Verify: CWV green, tests pass in CI
+## Phase 6 — Performance & correctness  ✅ DONE
+- [x] Trade matrix: verified already optimized — `FLUSH_MS=120` batching, 60-row cap, `memo()`'d rows (no virtualization needed for 60 rows)
+- [x] Comparison-mode connections: verified gated by `enabled` — only in-set venues open a socket
+- [x] `next/image`: N/A — no `<img>` tags (icons are SVG/CSS); nothing to convert
+- [x] Vitest + 11 adapter normalization tests (Binance side inference, KuCoin nanosecond→ms, registry, malformed-input resilience across all 5 venues)
+- [x] Removed dead components: `TradeMatrix.tsx`, `SymbolSwitcher.tsx`
+- [x] Verify: `next build` + `tsc --noEmit` + `vitest` all green
 
-## Phase 7 — Commercialization scaffolding
+### Deferred (need a browser / deployed URL)
+- [ ] Core Web Vitals (Lighthouse) — favorable factors in place (next/font, no CLS images, static content pages, memoized terminal); run against a deployed URL.
+- [ ] Playwright smoke test of the terminal — unit tests already cover the regression-prone normalization logic.
+
+## Phase 7 — Commercialization scaffolding  ← current
 - [ ] Privacy-friendly analytics + cookie consent
 - [ ] Contact form delivery (email) + Turnstile bot protection
 - [ ] Define paid wedge (e.g. cross-venue block-trade alerts) before adding accounts/quota
