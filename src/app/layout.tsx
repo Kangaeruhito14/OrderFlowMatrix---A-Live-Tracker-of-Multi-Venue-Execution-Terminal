@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import JsonLd from "@/components/JsonLd";
+import AnalyticsConsent from "@/components/AnalyticsConsent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -103,6 +104,7 @@ export default function RootLayout({
         <JsonLd data={structuredData} />
         {children}
         <Toaster />
+        <AnalyticsConsent />
       </body>
     </html>
   );
