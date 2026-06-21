@@ -1,0 +1,56 @@
+export const metadata = {
+  title: "What Is Order Flow?",
+  description:
+    "The tape, the order book, and what 'order flow' actually means — plus how to read who is initiating trades, and the limits of public data.",
+  alternates: { canonical: "/learn/what-is-order-flow" },
+};
+
+# What Is Order Flow?
+
+**Order flow** is the real-time stream of activity that moves a market: the trades that
+actually execute (the *tape*) and the resting orders waiting to be filled (the *order
+book*). Reading it is about answering one question — *who is initiating, buyers or
+sellers, and how aggressively?*
+
+## The two sides: makers and takers
+
+Every trade has two participants:
+
+- A **maker** posts a resting limit order on the book and waits.
+- A **taker** sends a market order that crosses the spread and executes immediately
+  against the maker's resting order.
+
+The taker is the **aggressor** — the one *demanding* liquidity right now. When a taker
+buys, they "lift the offer"; when they sell, they "hit the bid." Order flow analysis is
+largely about tracking aggressor activity over time.
+
+## Why it matters
+
+Price is the *result*; order flow is the *cause*. By watching the tape you can often see:
+
+- **Initiative** — is one side repeatedly paying up to get filled?
+- **Speed** — is the tape accelerating (interest building) or going quiet?
+- **Size** — are prints small and retail-like, or large and deliberate?
+- **Absorption** — heavy selling that *fails* to push price down means someone is quietly
+  buying everything offered. That's information.
+
+## Inference, not certainty
+
+Here's the honest part most tools skip. From a public trade feed you don't get traders'
+intentions — you get prices, sizes, and a flag. Order Flow Matrix infers the aggressor
+side from each exchange's maker/taker flag (the standard approach), but:
+
+- Inferred side is an approximation, not ground truth.
+- A single venue's tape is not the whole market.
+- Trades don't reveal resting-order games like spoofing.
+
+Treat order flow as a high-quality *signal*, not an oracle. (And nothing here is financial
+advice — see the [disclaimer](/disclaimer).)
+
+## See it live
+
+In [the terminal](/terminal), the [trade matrix](/learn/reading-the-trade-matrix) shows
+each aggressive print color-coded by side, the pressure meter summarizes the recent
+balance, and [CVD](/learn/cumulative-volume-delta) accumulates it into a running tally.
+
+New to the vocabulary? Start with the [glossary](/learn/glossary).
