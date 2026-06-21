@@ -1,0 +1,51 @@
+export const metadata = {
+  title: "Block Trades & Whale Detection",
+  description:
+    "What counts as a block trade, why notional thresholds must be per-symbol, and what large prints can and can't tell you.",
+  alternates: { canonical: "/learn/block-trades-and-whale-detection" },
+};
+
+# Block Trades & Whale Detection
+
+A **block trade** is a single execution that is unusually large relative to a market's
+normal trade size. Spotting them is one of the most popular uses of order flow — and one
+of the easiest to do badly.
+
+## What makes a print a "block"
+
+There's no universal number. A 5 BTC print is routine on BTCUSDT and enormous on a thin
+altcoin. The right definition is **relative**: a trade whose **notional** (price ×
+quantity) sits far above the typical size for *that* symbol on *that* venue.
+
+That's why a good detector uses a **per-symbol notional threshold**, not one global number.
+Order Flow Matrix sets a sensible default per symbol and lets you override the threshold to
+match what you consider "large."
+
+## Why traders care
+
+Large prints can mark:
+
+- **Conviction** — a sizable participant taking a position decisively.
+- **Absorption** — big aggressive prints that *fail* to move price reveal a passive
+  counterparty soaking them up (see [CVD](/learn/cumulative-volume-delta)).
+- **Liquidations** — forced market orders can produce sudden one-sided blocks.
+
+## What block trades can't tell you
+
+Be honest about the limits:
+
+- **Trades aren't intent.** A block is a fact about size, not a prediction.
+- **Side is still inferred** — same caveat as all
+  [order flow](/learn/what-is-order-flow).
+- **Resting games are invisible.** Spoofed or hidden orders never print on the tape.
+- **Aggregation differs.** Some venues report one large fill; others split it into many
+  smaller prints, which can hide a "block" or fake one.
+
+A single whale print is a data point, not a thesis. Combine it with tape context, CVD, and
+the depth book before reading too much into it.
+
+## In the terminal
+
+[Order Flow Matrix](/terminal) flashes block-trade alerts when a print crosses your
+notional threshold, keeps an alert history, and lets you tune the threshold per market. New
+to the terms here? See the [glossary](/learn/glossary).
