@@ -34,10 +34,15 @@ export default async function TerminalPage({
   const quote = quoteParam && /^[A-Z0-9]{2,8}$/.test(quoteParam) ? quoteParam : undefined;
 
   return (
-    <OrderFlowTerminal
-      initialExchange={exchange}
-      initialBase={base}
-      initialQuote={quote}
-    />
+    // The terminal is a purpose-built dark interface (like every trading
+    // terminal); scope the dark token set here so it stays dark even when
+    // the visitor picks the light site theme.
+    <div className="dark">
+      <OrderFlowTerminal
+        initialExchange={exchange}
+        initialBase={base}
+        initialQuote={quote}
+      />
+    </div>
   );
 }

@@ -45,24 +45,25 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* Light theme: cool paper-white with slate text and emerald primary */
+  --background: oklch(0.985 0.003 240);
+  --foreground: oklch(0.2 0.02 255);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.2 0.02 255);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.2 0.02 255);
+  --primary: oklch(0.6 0.13 163);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.955 0.005 240);
+  --secondary-foreground: oklch(0.25 0.02 255);
+  --muted: oklch(0.955 0.005 240);
+  --muted-foreground: oklch(0.46 0.02 255);
+  --accent: oklch(0.95 0.01 175);
+  --accent-foreground: oklch(0.25 0.02 255);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.9 0.008 240);
+  --input: oklch(0.9 0.008 240);
+  --ring: oklch(0.6 0.13 163);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -79,24 +80,25 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* Dark theme: deep blue-charcoal (not flat black) with emerald primary */
+  --background: oklch(0.15 0.018 255);
+  --foreground: oklch(0.95 0.005 240);
+  --card: oklch(0.19 0.02 255);
+  --card-foreground: oklch(0.95 0.005 240);
+  --popover: oklch(0.19 0.02 255);
+  --popover-foreground: oklch(0.95 0.005 240);
+  --primary: oklch(0.72 0.15 163);
+  --primary-foreground: oklch(0.14 0.02 255);
+  --secondary: oklch(0.24 0.02 255);
+  --secondary-foreground: oklch(0.95 0.005 240);
+  --muted: oklch(0.24 0.02 255);
+  --muted-foreground: oklch(0.68 0.015 250);
+  --accent: oklch(0.26 0.03 190);
+  --accent-foreground: oklch(0.95 0.005 240);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: oklch(0.72 0.15 163);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -118,5 +120,92 @@
   }
   body {
     @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* ---------- marketing-site motion primitives ---------- */
+
+/* Infinite ticker tape: track holds two copies of the content */
+@keyframes ofm-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ofm-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: ofm-marquee 45s linear infinite;
+}
+.ofm-marquee:hover .ofm-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Aurora background blobs */
+@keyframes ofm-float-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, -40px) scale(1.15); }
+}
+@keyframes ofm-float-b {
+  0%, 100% { transform: translate(0, 0) scale(1.1); }
+  50% { transform: translate(-50px, 30px) scale(0.95); }
+}
+.ofm-blob-a { animation: ofm-float-a 18s ease-in-out infinite; }
+.ofm-blob-b { animation: ofm-float-b 22s ease-in-out infinite; }
+
+/* Subtle background grid that adapts to the theme */
+.ofm-grid-bg {
+  background-image:
+    linear-gradient(to right, oklch(0.55 0.02 250 / 8%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.55 0.02 250 / 8%) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
+}
+
+/* One-shot pop used when a live price value changes (re-mounted per change) */
+@keyframes ofm-price-pop {
+  0% { background-color: oklch(0.72 0.15 163 / 28%); }
+  100% { background-color: transparent; }
+}
+.ofm-price-pop { animation: ofm-price-pop 0.9s ease-out; border-radius: 4px; }
+
+/* New live-trade row flash */
+@keyframes ofm-row-in {
+  0% { opacity: 0; transform: translateY(-6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.ofm-row-in { animation: ofm-row-in 0.35s ease-out; }
+
+/* Pulsing live dot */
+@keyframes ofm-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 oklch(0.72 0.15 163 / 55%); }
+  50% { opacity: 0.75; box-shadow: 0 0 0 5px oklch(0.72 0.15 163 / 0%); }
+}
+.ofm-pulse-dot { animation: ofm-pulse 2s ease-in-out infinite; }
+
+/* Traveling dot along pipeline connectors */
+@keyframes ofm-flow-x {
+  0% { left: 0%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { left: calc(100% - 6px); opacity: 0; }
+}
+.ofm-flow-dot {
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 9999px;
+  background: oklch(0.72 0.15 163);
+  animation: ofm-flow-x 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ofm-marquee-track,
+  .ofm-blob-a,
+  .ofm-blob-b,
+  .ofm-flow-dot,
+  .ofm-pulse-dot {
+    animation: none;
   }
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import JsonLd from "@/components/JsonLd";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -97,14 +98,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
         <JsonLd data={structuredData} />
-        {children}
-        <Toaster />
-        <AnalyticsConsent />
+        <ThemeProvider>
+          {children}
+          <Toaster />
+          <AnalyticsConsent />
+        </ThemeProvider>
       </body>
     </html>
   );
