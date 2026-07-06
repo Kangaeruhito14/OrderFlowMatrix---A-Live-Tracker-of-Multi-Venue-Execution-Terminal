@@ -18,7 +18,7 @@
  * visual treatment).
  */
 
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import type { WatchlistState } from './useWatchlist'
 
 interface Props {
@@ -60,25 +60,28 @@ export default function WatchlistPanel({
   // The bar fills 0..1 across each rotation interval. The cycle origin is
   // reset whenever auto-rotate turns on, the interval changes, or the
   // selection changes (the visible signal that a rotation just fired).
-  const [progress, setProgress] = useState(0) // 0..1
+  // The rAF loop paints the fill element directly via a ref — no React
+  // state, so the 60fps animation causes zero re-renders.
   const cycleStartRef = useRef<number>(0)
   const rafRef = useRef<number | null>(null)
+  const fillRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     cycleStartRef.current = Date.now()
-    setProgress(0)
+    if (fillRef.current) fillRef.current.style.width = '0%'
   }, [autoRotate, rotateIntervalMs, selectedKey])
 
   useEffect(() => {
     if (!autoRotate) {
-      setProgress(0)
+      if (fillRef.current) fillRef.current.style.width = '0%'
       return
     }
     const tick = () => {
-      const start = cycleStartRef.current
-      const elapsed = Date.now() - start
+      const elapsed = Date.now() - cycleStartRef.current
       const p = rotateIntervalMs > 0 ? (elapsed % rotateIntervalMs) / rotateIntervalMs : 0
-      setProgress(p)
+      if (fillRef.current) {
+        fillRef.current.style.width = `${Math.min(100, Math.max(0, p * 100))}%`
+      }
       rafRef.current = requestAnimationFrame(tick)
     }
     rafRef.current = requestAnimationFrame(tick)
@@ -87,8 +90,6 @@ export default function WatchlistPanel({
       rafRef.current = null
     }
   }, [autoRotate, rotateIntervalMs])
-
-  const pct = Math.min(100, Math.max(0, progress * 100))
 
   return (
     <section className="of-panel of-watchlist">
@@ -134,12 +135,8 @@ export default function WatchlistPanel({
                 </button>
               ))}
             </div>
-            <div
-              className="of-wl-progress"
-              aria-hidden="true"
-              title={`Next rotation in ${Math.max(0, ((rotateIntervalMs - (Date.now() - cycleStartRef.current)) / 1000)).toFixed(1)}s`}
-            >
-              <div className="of-wl-progress-fill" style={{ width: `${pct}%` }} />
+            <div className="of-wl-progress" aria-hidden="true" title="Rotation progress">
+              <div ref={fillRef} className="of-wl-progress-fill" style={{ width: '0%' }} />
             </div>
           </div>
         )}

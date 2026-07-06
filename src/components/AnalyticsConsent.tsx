@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Script from "next/script";
 import Link from "next/link";
 
@@ -8,7 +8,36 @@ const STORAGE_KEY = "ofm-analytics-consent";
 const DOMAIN = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 const SRC = process.env.NEXT_PUBLIC_PLAUSIBLE_SRC ?? "https://plausible.io/js/script.js";
 
-type Consent = "accepted" | "declined";
+/**
+ * Tiny external store around localStorage so React reads consent via
+ * useSyncExternalStore — hydration-safe (server snapshot renders nothing)
+ * and free of setState-in-effect patterns.
+ */
+let listeners: Array<() => void> = [];
+
+function subscribe(listener: () => void) {
+  listeners.push(listener);
+  return () => {
+    listeners = listeners.filter((l) => l !== listener);
+  };
+}
+
+function readConsent(): string {
+  try {
+    return localStorage.getItem(STORAGE_KEY) ?? "unset";
+  } catch {
+    return "unset";
+  }
+}
+
+function writeConsent(value: "accepted" | "declined") {
+  try {
+    localStorage.setItem(STORAGE_KEY, value);
+  } catch {
+    /* ignore */
+  }
+  for (const l of listeners) l();
+}
 
 /**
  * Privacy-friendly, cookieless analytics with a consent gate.
@@ -18,35 +47,10 @@ type Consent = "accepted" | "declined";
  * - The choice is stored in localStorage (not a tracking cookie).
  */
 export default function AnalyticsConsent() {
-  const [consent, setConsent] = useState<Consent | null>(null);
-  const [decided, setDecided] = useState(true); // assume decided until hydrated
+  // "ssr" on the server → nothing rendered until the client takes over.
+  const consent = useSyncExternalStore(subscribe, readConsent, () => "ssr");
 
-  useEffect(() => {
-    if (!DOMAIN) return;
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY) as Consent | null;
-      if (stored === "accepted" || stored === "declined") {
-        setConsent(stored);
-        setDecided(true);
-      } else {
-        setDecided(false); // show the banner
-      }
-    } catch {
-      setDecided(false);
-    }
-  }, []);
-
-  const choose = (value: Consent) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, value);
-    } catch {
-      /* ignore */
-    }
-    setConsent(value);
-    setDecided(true);
-  };
-
-  if (!DOMAIN) return null;
+  if (!DOMAIN || consent === "ssr") return null;
 
   return (
     <>
@@ -54,7 +58,7 @@ export default function AnalyticsConsent() {
         <Script defer data-domain={DOMAIN} src={SRC} strategy="afterInteractive" />
       ) : null}
 
-      {!decided ? (
+      {consent === "unset" ? (
         <div
           role="dialog"
           aria-label="Privacy notice"
@@ -71,14 +75,14 @@ export default function AnalyticsConsent() {
           <div className="mt-3 flex gap-2">
             <button
               type="button"
-              onClick={() => choose("accepted")}
+              onClick={() => writeConsent("accepted")}
               className="rounded-md bg-emerald-500 px-3.5 py-1.5 text-sm font-medium text-black transition-colors hover:bg-emerald-400"
             >
               Accept
             </button>
             <button
               type="button"
-              onClick={() => choose("declined")}
+              onClick={() => writeConsent("declined")}
               className="rounded-md border border-border px-3.5 py-1.5 text-sm text-foreground transition-colors hover:bg-secondary"
             >
               Decline
