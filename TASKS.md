@@ -109,6 +109,25 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 
 ---
 
+## Phase 8 — Full visual redesign (living, commercial-grade site)
+
+### 8a — Theme system + live homepage  ✅ DONE
+- [x] Fix ALL lint errors (7 total incl. legacy) → dev "N · issues" badge now shows zero (badge is dev-only; never visible in production)
+- [x] Light + dark theme: refreshed token palettes, next-themes provider, header toggle; terminal stays dark by design
+- [x] Live ticker tape (12 majors, polls Binance every 15s, marquee, pause-on-hover)
+- [x] Hero: real live BTC/USDT WebSocket trade feed card + aurora/grid animated background + gradient headline
+- [x] CMC-style live market table: 10 coins, price flash on change, 24h badges, volume, 48h SVG sparklines, deep-links to terminal
+- [x] Animated stat counters; adapter-pipeline infographic with traveling dots; scroll-reveal motion everywhere (reduced-motion respected)
+- [x] Glass sticky header + working mobile menu + theme toggle
+- [x] Tooling: `.mcp.json` (chrome-devtools MCP, loads next session) + `scripts/visual-qa.mjs` (puppeteer-core, screenshots both themes, catches console errors)
+- [x] Verify: eslint 0 · tsc 0 · 11 tests · build 159 routes · visual QA both themes, zero console errors
+
+### 8b — pending (needs user assets / review)
+- [ ] Integrate generated images (see `IMAGE_PROMPTS.md`): logo, favicon, OG bg, feature + learn illustrations
+- [ ] Terminal visual polish pass (align with new token system)
+- [ ] Restyle remaining pages to the new language (markets hub, learn, about, contact, legal)
+- [ ] OG image regeneration using brand assets
+
 ## 🎉 Phases 0–7 complete
 Decommission + security → branding → content/trust pages → Learn content → programmatic
 market pages + technical SEO → LLM-SEO → performance & tests → commercialization scaffolding.

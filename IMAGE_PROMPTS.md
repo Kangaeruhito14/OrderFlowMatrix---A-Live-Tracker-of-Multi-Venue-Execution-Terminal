@@ -1,0 +1,92 @@
+# Image Generation Prompts — Order Flow Matrix
+
+Generate these with your image AI, then drop the files into the exact paths below and
+tell me — I'll wire them in (Phase 8b). Brand anchors to include in every prompt:
+
+- **Accent:** emerald green `#10b981` (+ teal/cyan `#22d3ee` as secondary)
+- **Dark surface:** deep blue-charcoal `#0f1420` · **Light surface:** cool white `#f8fafc`
+- **Mood:** precise, technical, financial-grade — NOT cartoonish, NO mascots, NO text in images
+- Prefer **transparent background PNG** (or SVG) unless stated otherwise.
+
+---
+
+## 1. Logo mark → `public/logo.svg` (or `logo.png`, 512×512, transparent)
+
+> Minimal geometric logo mark for a crypto trading terminal called "Order Flow Matrix".
+> A rounded square node from which 3–5 thin flowing lines converge from the left and
+> exit as one ordered stream to the right, suggesting many market feeds merging into one.
+> Flat vector style, emerald green #10b981 gradient into teal #22d3ee on transparent
+> background. No text, no letters, sharp and modern, suitable as an app icon. Centered,
+> generous padding.
+
+## 2. Favicon → `src/app/icon.png` (512×512, transparent; I'll downscale)
+
+> Same logo mark as above, simplified to its boldest shape so it stays readable at
+> 16×16 pixels: one rounded-square node + two converging flow lines. Flat vector,
+> emerald green #10b981, transparent background, no text.
+
+## 3. Social / OG banner background → `public/images/og-bg.png` (1200×630, opaque)
+
+> Wide abstract background for a financial technology social card. Deep blue-charcoal
+> #0f1420 base, a faint perspective grid, soft emerald #10b981 and cyan #22d3ee glow
+> gradients rising from the bottom-left, a few thin ascending candlestick-like light
+> streaks. Dark, premium, subtle — must stay quiet enough that white text placed on top
+> remains readable. No text, no logos.
+
+## 4. Hero side visual (optional alternative to the live widget) → `public/images/hero-terminal.png` (1600×1200, transparent or dark)
+
+> Slightly angled 3D render of a sleek dark trading dashboard floating in space:
+> glassmorphism panels showing a candlestick chart, a green/red order-book ladder and a
+> trade list, glowing emerald #10b981 accents on a deep navy #0f1420 background, soft
+> shadows, shallow depth of field. Premium fintech product-shot style, no readable text
+> (suggest UI with abstract bars and lines only), no people.
+
+## 5. Feature illustrations → `public/images/features/*.png` (800×600 each, transparent)
+
+**a. `live-flow.png`** — abstract stream of small green and red blocks flowing along a
+curved path into a structured grid, dark background, emerald glow, isometric flat-3D style.
+
+**b. `depth.png`** — stylized order-book ladder: horizontal green bars stacked below,
+red bars stacked above, meeting at a glowing gap, isometric flat-3D, dark background.
+
+**c. `alerts.png`** — one oversized glowing emerald block standing out among small muted
+gray blocks on a dark conveyor-like stream, a subtle radar ring pulsing around it.
+
+**d. `multi-venue.png`** — five small glowing nodes in different brand-ish colors
+(gold, orange, gray, cyan, teal) connected by thin light lines converging into one
+larger emerald node, dark background, network/constellation style.
+
+## 6. Learn article covers → `public/images/learn/*.png` (1200×675 each, opaque dark)
+
+**a. `what-is-order-flow.png`** — abstract tape of alternating green/red ticks flowing
+left to right across a dark panel, one section magnified under a subtle lens glow.
+
+**b. `cvd.png`** — a single smooth emerald line rising and falling over faint red/green
+volume bars, dark background, one divergence highlighted with a soft cyan glow.
+
+**c. `trade-matrix.png`** — a dense dark table of abstract rows where a few rows glow
+green and red, viewed at a slight angle with depth of field.
+
+**d. `block-trades.png`** — a whale silhouette formed from tiny candlestick shapes
+swimming through a dark data stream, emerald accent lighting, elegant not cute.
+
+## 7. About page visual → `public/images/about-desk.png` (1200×800, opaque dark)
+
+> Moody wide shot of a modern trading desk at night: multiple dark monitors with
+> abstract green/red charts (no readable text), emerald ambient glow, empty chair,
+> rain-flecked window with city bokeh behind. Cinematic, premium, no identifiable
+> brands or people.
+
+## 8. Empty/error state → `public/images/empty-signal.png` (600×600, transparent)
+
+> Minimal illustration of a disconnected plug or a satellite dish with a dotted signal
+> line breaking up, flat vector, muted slate gray with one emerald accent, transparent
+> background, gentle and clean.
+
+---
+
+### After you generate them
+1. Put each file at the exact path listed (create `public/images/` subfolders as needed).
+2. Keep filenames exactly as written.
+3. Tell me they're in — I'll integrate them (OG image composition, hero, feature cards,
+   learn covers, about page) and re-verify light/dark rendering in Phase 8b.
