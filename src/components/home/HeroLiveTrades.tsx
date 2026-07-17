@@ -143,10 +143,21 @@ export default function HeroLiveTrades() {
           <span className="text-right">Size</span>
         </div>
         {trades.length === 0 ? (
-          <div className="px-2 py-6 text-center font-mono text-xs text-muted-foreground">
-            {status === "offline"
-              ? "Stream unavailable — open the terminal for the REST fallback."
-              : "connecting to live feed…"}
+          <div className="flex flex-col items-center gap-3 px-2 py-6 text-center font-mono text-xs text-muted-foreground">
+            {status === "offline" ? (
+              <>
+                { }
+                <img
+                  src="/images/empty-signal.png"
+                  alt=""
+                  aria-hidden
+                  className="h-12 w-auto opacity-70"
+                />
+                <span>Stream unavailable — open the terminal for the REST fallback.</span>
+              </>
+            ) : (
+              "connecting to live feed…"
+            )}
           </div>
         ) : (
           <ul>

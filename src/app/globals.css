@@ -118,6 +118,16 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+    /* keep anchored headings clear of the sticky header */
+    scroll-padding-top: 4.5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
   body {
     @apply bg-background text-foreground;
     transition: background-color 0.3s ease, color 0.3s ease;

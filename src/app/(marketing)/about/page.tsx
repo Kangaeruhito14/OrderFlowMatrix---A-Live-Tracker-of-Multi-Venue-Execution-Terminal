@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import PageShell, { Section } from "@/components/marketing/PageShell";
 
 export const metadata: Metadata = {
@@ -15,6 +16,16 @@ export default function AboutPage() {
       title="About Order Flow Matrix"
       lead="A live tracker of multi-venue crypto execution flow — built to read the tape fast, honestly, and across exchanges."
     >
+      <Image
+        src="/images/about-desk.png"
+        alt="Trading desk at night with dark monitors showing green and red charts against a rain-flecked city window"
+        width={1536}
+        height={1024}
+        priority
+        sizes="(max-width: 768px) 100vw, 768px"
+        className="h-auto w-full rounded-xl border border-border"
+      />
+
       <Section heading="What it is">
         <p>
           Order Flow Matrix is a real-time crypto order-flow terminal. It connects to the
