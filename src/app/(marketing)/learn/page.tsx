@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { BookOpen, ArrowRight } from "lucide-react";
 import { learnArticles } from "./articles";
 
@@ -27,24 +28,36 @@ export default function LearnIndexPage() {
         Matrix to see it. No jargon for jargon&apos;s sake.
       </p>
 
-      <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2">
+      <div className="mt-10 grid gap-5 sm:grid-cols-2">
         {learnArticles.map((a) => (
           <Link
             key={a.slug}
             href={`/learn/${a.slug}`}
-            className="group flex flex-col bg-card p-5 transition-colors hover:bg-secondary"
+            className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10"
           >
-            <div className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground">
-              <span>{dateFmt.format(new Date(a.date))}</span>
-              <span aria-hidden>·</span>
-              <span>{a.readingMinutes} min read</span>
+            <div className="overflow-hidden">
+              <Image
+                src={a.cover}
+                alt={a.coverAlt}
+                width={1536}
+                height={1024}
+                sizes="(max-width: 640px) 100vw, 480px"
+                className="aspect-[2/1] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
             </div>
-            <h2 className="mt-2 text-base font-semibold text-foreground">{a.title}</h2>
-            <p className="mt-1.5 flex-1 text-sm text-muted-foreground">{a.description}</p>
-            <span className="mt-3 inline-flex items-center gap-1 text-sm text-emerald-400">
-              Read
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-            </span>
+            <div className="flex flex-1 flex-col p-5">
+              <div className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground">
+                <span>{dateFmt.format(new Date(a.date))}</span>
+                <span aria-hidden>·</span>
+                <span>{a.readingMinutes} min read</span>
+              </div>
+              <h2 className="mt-2 text-base font-semibold text-foreground">{a.title}</h2>
+              <p className="mt-1.5 flex-1 text-sm text-muted-foreground">{a.description}</p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm text-emerald-500">
+                Read
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
           </Link>
         ))}
       </div>

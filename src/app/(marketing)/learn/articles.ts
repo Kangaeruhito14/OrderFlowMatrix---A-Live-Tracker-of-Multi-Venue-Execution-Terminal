@@ -9,6 +9,9 @@ export interface LearnArticle {
   description: string;
   date: string; // ISO yyyy-mm-dd
   readingMinutes: number;
+  /** Cover artwork under public/, 3:2-ish, dark-themed */
+  cover: string;
+  coverAlt: string;
 }
 
 export const learnArticles: LearnArticle[] = [
@@ -19,6 +22,8 @@ export const learnArticles: LearnArticle[] = [
       "The tape, the order book, and what 'order flow' actually means — plus how to read who is initiating trades.",
     date: "2026-06-21",
     readingMinutes: 6,
+    cover: "/images/learn/what-is-order-flow.png",
+    coverAlt: "Magnifying lens over a tape of green and red trade ticks",
   },
   {
     slug: "cumulative-volume-delta",
@@ -27,6 +32,8 @@ export const learnArticles: LearnArticle[] = [
       "How delta and CVD are built, how to read divergences and absorption, and the caveats most people miss.",
     date: "2026-06-21",
     readingMinutes: 6,
+    cover: "/images/learn/cvd.png",
+    coverAlt: "Emerald CVD line over volume bars with a highlighted divergence",
   },
   {
     slug: "reading-the-trade-matrix",
@@ -35,6 +42,8 @@ export const learnArticles: LearnArticle[] = [
       "What every column and color in a live trade blotter means, and the patterns worth watching across venues.",
     date: "2026-06-21",
     readingMinutes: 5,
+    cover: "/images/learn/trade-matrix.png",
+    coverAlt: "Angled dark table of live market rows with green and red highlights",
   },
   {
     slug: "block-trades-and-whale-detection",
@@ -43,5 +52,7 @@ export const learnArticles: LearnArticle[] = [
       "What counts as a block trade, why notional thresholds must be per-symbol, and what large prints can and can't tell you.",
     date: "2026-06-21",
     readingMinutes: 6,
+    cover: "/images/learn/block-trades.png",
+    coverAlt: "Whale silhouette formed from tiny candlesticks swimming through a data stream",
   },
 ];
