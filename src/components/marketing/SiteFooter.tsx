@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Disclaimer from "@/components/Disclaimer";
 
 const COLUMNS = [
@@ -39,7 +40,13 @@ export default function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-[1.5fr_repeat(3,1fr)]">
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              <Image
+                src="/logo.png"
+                alt="Order Flow Matrix logo"
+                width={1078}
+                height={736}
+                className="h-6 w-auto"
+              />
               <span className="font-mono text-sm font-semibold text-foreground">
                 Order Flow Matrix
               </span>

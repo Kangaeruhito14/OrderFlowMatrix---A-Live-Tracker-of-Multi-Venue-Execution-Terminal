@@ -16,13 +16,14 @@ export default function ArticleSchema({ slug }: { slug: string }) {
     "@type": "Article",
     headline: a.title,
     description: a.description,
+    image: `${siteUrl}${a.cover}`,
     datePublished: a.date,
     dateModified: a.date,
     author: { "@type": "Organization", name: "Order Flow Matrix" },
     publisher: {
       "@type": "Organization",
       name: "Order Flow Matrix",
-      logo: { "@type": "ImageObject", url: `${siteUrl}/logo.svg` },
+      logo: { "@type": "ImageObject", url: `${siteUrl}/logo.png` },
     },
     mainEntityOfPage: `${siteUrl}/learn/${a.slug}`,
   };

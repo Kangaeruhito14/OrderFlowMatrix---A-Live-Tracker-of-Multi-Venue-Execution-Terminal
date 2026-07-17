@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -21,7 +22,14 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="ofm-pulse-dot h-2.5 w-2.5 rounded-full bg-emerald-500" />
+          <Image
+            src="/logo.png"
+            alt="Order Flow Matrix logo"
+            width={1078}
+            height={736}
+            priority
+            className="h-7 w-auto"
+          />
           <span className="font-mono text-sm font-semibold tracking-tight text-foreground">
             Order Flow Matrix
           </span>
