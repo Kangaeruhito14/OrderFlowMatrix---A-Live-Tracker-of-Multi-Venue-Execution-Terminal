@@ -122,11 +122,19 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - [x] Tooling: `.mcp.json` (chrome-devtools MCP, loads next session) + `scripts/visual-qa.mjs` (puppeteer-core, screenshots both themes, catches console errors)
 - [x] Verify: eslint 0 · tsc 0 · 11 tests · build 159 routes · visual QA both themes, zero console errors
 
-### 8b — pending (needs user assets / review)
-- [ ] Integrate generated images (see `IMAGE_PROMPTS.md`): logo, favicon, OG bg, feature + learn illustrations
+### 8b — Brand asset integration  ✅ DONE
+- [x] Full favicon set wired (96px PNG + SVG + ICO + apple-touch + maskable 192/512); `site.webmanifest` merged into `manifest.ts`; apple title "Order Flow"
+- [x] Real logo (`logo.png`) in header, footer, JSON-LD; old placeholder `logo.svg`/`icon.svg` deleted
+- [x] OG card composited from `og-bg.png` + logo + headline (chose `og-bg.png` over the `(1)` variant — correct 1.9:1 ratio, quiet center)
+- [x] Homepage: `hero-terminal.png` product showcase; features rebuilt as 4 illustrated alternating spotlights (art on dark panels → works in both themes) + 4 compact cards
+- [x] Learn: covers in registry, index cards, article tops (`ArticleCover`), and Article JSON-LD `image`
+- [x] About: `about-desk.png`; hero feed offline state: `empty-signal.png`; smooth scrolling (+ reduced-motion, scroll-padding)
+- [x] Verified in a live Chrome DevTools MCP loop: home dark/light, learn, mobile 390px, all favicon/OG/manifest endpoints 200, **zero console errors**; eslint 0 / tsc 0 / 11 tests / build green
+
+### 8c — pending
+- [ ] Light-theme image variants (prompts ready in `IMAGE_PROMPTS.md` ROUND 2) → conditional dark/light rendering
 - [ ] Terminal visual polish pass (align with new token system)
-- [ ] Restyle remaining pages to the new language (markets hub, learn, about, contact, legal)
-- [ ] OG image regeneration using brand assets
+- [ ] Restyle remaining thin pages (markets hub polish, contact/legal accents)
 
 ## 🎉 Phases 0–7 complete
 Decommission + security → branding → content/trust pages → Learn content → programmatic
