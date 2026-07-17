@@ -1,11 +1,23 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt = "Order Flow Matrix — Live Multi-Venue Crypto Execution Terminal";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Dynamically generated OpenGraph card. No external fonts/assets so it builds anywhere.
-export default function Image() {
+/**
+ * OpenGraph card composited over the brand background artwork
+ * (public/images/og-bg.png) with the logo and title.
+ */
+export default async function Image() {
+  const [bg, logo] = await Promise.all([
+    readFile(join(process.cwd(), "public", "images", "og-bg.png")),
+    readFile(join(process.cwd(), "public", "logo.png")),
+  ]);
+  const bgSrc = `data:image/png;base64,${bg.toString("base64")}`;
+  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -15,54 +27,77 @@ export default function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "linear-gradient(135deg, #06080c 0%, #0d1320 60%, #0a0e14 100%)",
-          padding: "64px 72px",
-          color: "#e6edf3",
+          position: "relative",
           fontFamily: "monospace",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div
-            style={{
-              width: 16,
-              height: 16,
-              borderRadius: 999,
-              background: "#10b981",
-              boxShadow: "0 0 24px #10b981",
-            }}
-          />
-          <div style={{ fontSize: 28, letterSpacing: 2, color: "#8b98a5" }}>
+        {/* background artwork */}
+        { }
+        <img
+          src={bgSrc}
+          alt=""
+          width={1200}
+          height={630}
+          style={{ position: "absolute", inset: 0, objectFit: "cover" }}
+        />
+        {/* darkening scrim for text legibility */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(180deg, rgba(6,10,18,0.55) 0%, rgba(6,10,18,0.25) 45%, rgba(6,10,18,0.6) 100%)",
+          }}
+        />
+
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            alignItems: "center",
+            gap: 18,
+            padding: "56px 72px 0",
+          }}
+        >
+          { }
+          <img src={logoSrc} alt="" width={86} height={59} />
+          <div style={{ fontSize: 30, letterSpacing: 3, color: "#c9d4df", fontWeight: 700 }}>
             ORDER FLOW MATRIX
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1 }}>
-            Live Multi-Venue Crypto
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+            padding: "0 72px 60px",
+          }}
+        >
+          <div style={{ fontSize: 62, fontWeight: 700, color: "#ffffff", lineHeight: 1.12 }}>
+            Live multi-venue crypto
           </div>
-          <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1 }}>
-            Execution Terminal
+          <div style={{ fontSize: 62, fontWeight: 700, color: "#34d399", lineHeight: 1.12 }}>
+            execution terminal
           </div>
-          <div style={{ fontSize: 30, color: "#8b98a5", marginTop: 8 }}>
-            Real-time order flow · trade matrix · depth · CVD · block alerts
+          <div style={{ display: "flex", gap: 12, marginTop: 14 }}>
+            {["Binance", "Bybit", "OKX", "Bitget", "KuCoin"].map((v) => (
+              <div
+                key={v}
+                style={{
+                  padding: "7px 16px",
+                  border: "1px solid rgba(148,163,184,0.35)",
+                  borderRadius: 8,
+                  color: "#e2e8f0",
+                  background: "rgba(10,16,28,0.55)",
+                  fontSize: 22,
+                }}
+              >
+                {v}
+              </div>
+            ))}
           </div>
-        </div>
-
-        <div style={{ display: "flex", gap: 14, fontSize: 26 }}>
-          {["Binance", "Bybit", "OKX", "Bitget", "KuCoin"].map((v) => (
-            <div
-              key={v}
-              style={{
-                padding: "8px 18px",
-                border: "1px solid #1e2a3a",
-                borderRadius: 8,
-                color: "#c9d4df",
-                background: "#0f1622",
-              }}
-            >
-              {v}
-            </div>
-          ))}
         </div>
       </div>
     ),
