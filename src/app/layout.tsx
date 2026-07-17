@@ -46,6 +46,15 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Order Flow Matrix" }],
   creator: "Order Flow Matrix",
+  icons: {
+    icon: [
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  appleWebApp: { title: "Order Flow" },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -71,7 +80,7 @@ const structuredData = [
     "@type": "Organization",
     name: "Order Flow Matrix",
     url: siteUrl,
-    logo: `${siteUrl}/logo.svg`,
+    logo: `${siteUrl}/logo.png`,
   },
   {
     "@context": "https://schema.org",
