@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  Activity,
-  BarChart3,
-  LineChart,
-  Bell,
-  Search,
-  Star,
-  GitCompare,
-  Crosshair,
-  ArrowRight,
-} from "lucide-react";
+import Image from "next/image";
+import { LineChart, Search, Star, Crosshair, ArrowRight } from "lucide-react";
 import TickerTape from "@/components/home/TickerTape";
 import HeroLiveTrades from "@/components/home/HeroLiveTrades";
 import LiveMarketTable from "@/components/home/LiveMarketTable";
@@ -29,26 +20,44 @@ export const metadata: Metadata = {
 
 const VENUES = ["Binance", "Bybit", "OKX", "Bitget", "KuCoin"];
 
-const FEATURES = [
+/** Illustrated feature spotlights (alternating image/text rows). */
+const SPOTLIGHTS = [
   {
-    icon: Activity,
+    image: "/images/features/live-flow.png",
+    alt: "Stream of green and red trade blocks flowing into a structured matrix",
     title: "Live Trade Matrix",
-    body: "A dense, color-coded blotter of every incoming trade with venue tag, price, size, notional and inferred aggressor side.",
+    body: "A dense, color-coded blotter of every incoming trade — venue tag, price, size, notional and inferred aggressor side. Raw flow, made readable at a glance.",
+    link: { href: "/learn/reading-the-trade-matrix", label: "How to read it" },
   },
   {
-    icon: BarChart3,
+    image: "/images/features/depth.png",
+    alt: "Order-book depth ladder with stacked green bids and red asks",
     title: "Order-Book Depth Ladder",
-    body: "Real-time bid/ask depth with cumulative size, so you can see where liquidity is stacked.",
+    body: "Real-time bid/ask depth with cumulative size, so you can see exactly where liquidity is stacked — and where it disappears.",
+    link: { href: "/terminal", label: "See it live" },
   },
+  {
+    image: "/images/features/alerts.png",
+    alt: "One glowing block standing out from muted blocks on a data conveyor",
+    title: "CVD & Block-Trade Alerts",
+    body: "Cumulative volume delta tracks who's really in control, and block alerts fire when whale-sized prints cross your per-symbol threshold.",
+    link: { href: "/learn/block-trades-and-whale-detection", label: "Whale detection guide" },
+  },
+  {
+    image: "/images/features/multi-venue.png",
+    alt: "Five colored venue nodes linked to one central emerald node",
+    title: "Five Venues, One View",
+    body: "Binance, Bybit, OKX, Bitget and KuCoin — compare the same market side-by-side across exchanges, or lock onto a single venue.",
+    link: { href: "/markets", label: "Browse markets" },
+  },
+];
+
+/** Remaining capabilities as compact cards. */
+const FEATURES = [
   {
     icon: LineChart,
     title: "Candles + Volume Profile",
     body: "Custom-rendered candlesticks with a volume profile — no third-party charting library.",
-  },
-  {
-    icon: Bell,
-    title: "CVD & Block-Trade Alerts",
-    body: "Cumulative volume delta plus alerts when unusually large prints cross your notional threshold.",
   },
   {
     icon: Search,
@@ -59,11 +68,6 @@ const FEATURES = [
     icon: Star,
     title: "Watchlist & Auto-Rotation",
     body: "Pin the pairs you care about and optionally rotate through them hands-free.",
-  },
-  {
-    icon: GitCompare,
-    title: "Exchange Comparison",
-    body: "Put the same symbol side-by-side across venues to compare price, activity and pressure.",
   },
   {
     icon: Crosshair,
@@ -148,6 +152,41 @@ export default function HomePage() {
         </Reveal>
       </section>
 
+      {/* Product showcase */}
+      <section className="relative overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
+          style={{
+            background:
+              "radial-gradient(60% 80% at 50% 100%, rgba(16,185,129,0.12) 0%, rgba(16,185,129,0) 70%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-6xl px-5 py-14 text-center">
+          <Reveal>
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+              A terminal, not a widget
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-muted-foreground">
+              Trade matrix, depth, candles, CVD and alerts — one dense surface engineered
+              for reading markets under pressure.
+            </p>
+          </Reveal>
+          <Reveal delay={0.12} y={40}>
+            <div className="relative mx-auto mt-10 max-w-4xl">
+              <Image
+                src="/images/hero-terminal.png"
+                alt="Angled product view of the Order Flow Matrix terminal with candlestick chart, order-book ladder and trade list"
+                width={1536}
+                height={1024}
+                className="h-auto w-full drop-shadow-[0_24px_60px_rgba(16,185,129,0.18)]"
+                sizes="(max-width: 1024px) 100vw, 896px"
+              />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Live markets */}
       <section className="mx-auto max-w-6xl px-5 py-14">
         <Reveal>
@@ -176,7 +215,7 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* Features */}
+      {/* Feature spotlights (illustrated) */}
       <section className="border-y border-border bg-card/40">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <Reveal>
@@ -187,7 +226,45 @@ export default function HomePage() {
               Built for reading the tape fast — disciplined, data-first, alive.
             </p>
           </Reveal>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+          <div className="mt-12 space-y-16">
+            {SPOTLIGHTS.map((s, i) => (
+              <Reveal key={s.title}>
+                <div
+                  className={`grid items-center gap-8 lg:grid-cols-2 ${
+                    i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+                  }`}
+                >
+                  {/* artwork on a dark screen panel (consistent in both themes) */}
+                  <div className="overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-[#0b101c] to-[#0e1626] p-6 shadow-xl shadow-emerald-500/5">
+                    <Image
+                      src={s.image}
+                      alt={s.alt}
+                      width={1536}
+                      height={1024}
+                      className="h-auto w-full"
+                      sizes="(max-width: 1024px) 100vw, 560px"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold tracking-tight text-foreground">
+                      {s.title}
+                    </h3>
+                    <p className="mt-3 text-muted-foreground">{s.body}</p>
+                    <Link
+                      href={s.link.href}
+                      className="mt-4 inline-flex items-center gap-1.5 text-sm text-emerald-500 underline-offset-4 hover:underline"
+                    >
+                      {s.link.label} <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                    </Link>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* compact capability cards */}
+          <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {FEATURES.map((f, i) => {
               const Icon = f.icon;
               return (
