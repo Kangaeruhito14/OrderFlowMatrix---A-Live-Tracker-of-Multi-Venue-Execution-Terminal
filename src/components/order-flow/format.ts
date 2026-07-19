@@ -1,7 +1,5 @@
 'use client'
 
-import type { Trade } from './useBinanceTradeStream'
-
 export function fmtPrice(p: number | null | undefined, digits = 2): string {
   if (p === null || p === undefined || !Number.isFinite(p)) return '—'
   return p.toLocaleString('en-US', {
@@ -64,16 +62,4 @@ export function fmtAge(ms: number | null | undefined): string {
   const h = Math.floor(m / 60)
   const rm = m % 60
   return h + 'h ' + rm + 'm'
-}
-
-export function classifyImpact(t: Trade, recent: Trade[] | undefined): 'low' | 'mid' | 'high' {
-  // relative notional impact vs recent window max
-  if (!recent || recent.length === 0) return 'low'
-  let max = 0
-  for (const r of recent) if (r.notional > max) max = r.notional
-  if (max <= 0) return 'low'
-  const ratio = t.notional / max
-  if (ratio >= 0.65) return 'high'
-  if (ratio >= 0.3) return 'mid'
-  return 'low'
 }
