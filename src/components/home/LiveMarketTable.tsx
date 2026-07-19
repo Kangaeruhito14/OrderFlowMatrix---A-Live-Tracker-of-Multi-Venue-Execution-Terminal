@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { COINS as ALL_COINS } from "@/lib/coins";
 
 /**
  * CoinMarketCap-style live market table: real prices polling every 10s from
@@ -9,18 +10,7 @@ import Link from "next/link";
  * and a one-click jump into the terminal for any row.
  */
 
-const COINS = [
-  { base: "BTC", name: "Bitcoin", color: "#f7931a" },
-  { base: "ETH", name: "Ethereum", color: "#627eea" },
-  { base: "SOL", name: "Solana", color: "#9945ff" },
-  { base: "BNB", name: "BNB", color: "#f0b90b" },
-  { base: "XRP", name: "XRP", color: "#00a5df" },
-  { base: "DOGE", name: "Dogecoin", color: "#c2a633" },
-  { base: "ADA", name: "Cardano", color: "#0033ad" },
-  { base: "AVAX", name: "Avalanche", color: "#e84142" },
-  { base: "LINK", name: "Chainlink", color: "#2a5ada" },
-  { base: "LTC", name: "Litecoin", color: "#345d9d" },
-] as const;
+const COINS = ALL_COINS.slice(0, 10);
 
 const POLL_MS = 10_000;
 
