@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   reactStrictMode: true,
   poweredByHeader: false,
+  // Hide the floating "N" dev-tools badge entirely (it never ships to
+  // production builds either way).
+  devIndicators: false,
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
