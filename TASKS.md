@@ -131,10 +131,17 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - [x] About: `about-desk.png`; hero feed offline state: `empty-signal.png`; smooth scrolling (+ reduced-motion, scroll-padding)
 - [x] Verified in a live Chrome DevTools MCP loop: home dark/light, learn, mobile 390px, all favicon/OG/manifest endpoints 200, **zero console errors**; eslint 0 / tsc 0 / 11 tests / build green
 
-### 8c — pending
-- [ ] Light-theme image variants (prompts ready in `IMAGE_PROMPTS.md` ROUND 2) → conditional dark/light rendering
-- [ ] Terminal visual polish pass (align with new token system)
-- [ ] Restyle remaining thin pages (markets hub polish, contact/legal accents)
+### 8c — Terminal rebuild + full page redesign  ✅ DONE
+- [x] **Old terminal deleted entirely** (27 files + `order-flow.css` + Bootstrap dep) — this also killed the back-button style-corruption bug (Bootstrap's global CSS leaked onto other pages after visiting the terminal)
+- [x] **New per-coin live dashboard** (`src/components/coin/`): coin picker pills, CMC-style header (live price, session stats, venue picker), SVG candlestick chart with volume + intervals, order book with depth bars + spread, live trade tape with BUY/SELL/BLOCK badges, order-flow pressure panel — light + dark, mobile-responsive, URL-shareable
+- [x] Professional per-venue "data unavailable" notices with links to the venue's official market page (terminal + market pages)
+- [x] Homepage features: panels removed — dark art floats transparent; light variants framed; hero showcase theme-aware
+- [x] Learn articles fully redesigned: breadcrumb + title block + meta chips + theme-aware 21:9 cover, upgraded typography (emerald bullets, bordered h2s, styled code/quotes), end-of-article CTAs
+- [x] About rebuilt as a real about page: full-bleed banner, numbers band, capability + principle cards, pipeline infographic
+- [x] Alerts: "what commonly moves crypto markets" education (8 mechanics) + explicit no-advice framing
+- [x] Contact: "we are not financial advisors" note + official venue sites + CMC/CoinGecko/TradingView/Investopedia resources
+- [x] 11 light-theme images reviewed & integrated (4 feature lights have painted backgrounds → framed treatment; optional re-prompts noted)
+- [x] Verified via DevTools MCP loop: terminal dark/light/mobile, article, about, back-button test PASSED, zero console errors; eslint 0 / tsc 0 / 11 tests / build green
 
 ## 🎉 Phases 0–7 complete
 Decommission + security → branding → content/trust pages → Learn content → programmatic
