@@ -63,10 +63,9 @@ export default function PrivacyPage() {
           and privacy policies. We are not affiliated with these exchanges.
         </p>
         <p>
-          Our contact and waitlist forms may use Cloudflare Turnstile for bot protection,
-          which processes limited technical signals to confirm you are human. Submitted
-          messages may be delivered to an operational channel (for example, a webhook) so we
-          can read and respond to them.
+          Contact happens over plain email: if you write to our contact address, we
+          receive exactly what you choose to send (your email address and message), we use
+          it only to reply, and you can ask us to delete it at any time.
         </p>
       </Section>
 

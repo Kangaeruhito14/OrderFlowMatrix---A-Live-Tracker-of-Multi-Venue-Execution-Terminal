@@ -1,20 +1,43 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ExternalLink, MessageSquare, ShieldAlert, Bug, Lightbulb } from "lucide-react";
-import ContactForm from "@/components/marketing/ContactForm";
+import {
+  ExternalLink,
+  Mail,
+  ShieldAlert,
+  Bug,
+  Lightbulb,
+  MessageSquare,
+  Clock,
+} from "lucide-react";
+import CopyEmailButton from "@/components/marketing/CopyEmailButton";
 import { VENUES, VENUE_IDS } from "@/lib/venues";
+
+const CONTACT_EMAIL =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "fantasyfalcoon91@gmail.com";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Order Flow Matrix — feedback, bug reports and feature requests. Please note: we do not provide financial or trading advice.",
+    "Contact Order Flow Matrix by email — feedback, bug reports and feature requests. Please note: we do not provide financial or trading advice.",
   alternates: { canonical: "/contact" },
 };
 
-const GOOD_TOPICS = [
-  { icon: Bug, text: "Bug reports — include the coin, venue and what you saw." },
-  { icon: Lightbulb, text: "Feature requests and feedback on the terminal or guides." },
-  { icon: MessageSquare, text: "Questions about how the site and its data work." },
+const TOPICS = [
+  {
+    icon: Bug,
+    title: "Bug reports",
+    body: "Tell us the coin, the venue, and what you saw — screenshots help a lot.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Feature requests",
+    body: "Ideas for the terminal, the market pages or the guides are always welcome.",
+  },
+  {
+    icon: MessageSquare,
+    title: "General feedback",
+    body: "Questions about how the site works, the data sources, or anything unclear.",
+  },
 ];
 
 const KNOWLEDGE_RESOURCES = [
@@ -41,38 +64,81 @@ const KNOWLEDGE_RESOURCES = [
 ];
 
 export default function ContactPage() {
+  const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("[Order Flow Matrix] ")}`;
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-16">
       <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
         Contact
       </h1>
       <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
-        Feedback, bug reports, feature requests — we&apos;d like to hear them.
+        The fastest way to reach us is email — for feedback, bug reports and feature
+        requests.
       </p>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_1fr]">
-        {/* form */}
-        <div className="rounded-2xl border border-border bg-card p-6">
-          <h2 className="text-base font-semibold text-foreground">Send a message</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Replies are best-effort — this is an independent project.
-          </p>
-          <div className="mt-5">
-            <ContactForm />
+        {/* email card */}
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-7">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-emerald-500/10 to-transparent"
+          />
+          <div className="relative">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/25 to-cyan-500/10 text-emerald-500">
+              <Mail className="h-5 w-5" aria-hidden />
+            </span>
+            <h2 className="mt-4 text-lg font-semibold text-foreground">Email us directly</h2>
+            <p className="mt-1.5 text-sm text-muted-foreground">
+              One address, read by a human. We reply to every genuine message we can.
+            </p>
+
+            <div className="mt-5 rounded-xl border border-border bg-background p-4">
+              <div className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                Write to
+              </div>
+              <a
+                href={mailto}
+                className="mt-1 block break-all font-mono text-lg font-semibold text-emerald-600 underline-offset-4 hover:underline dark:text-emerald-400"
+              >
+                {CONTACT_EMAIL}
+              </a>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <a
+                  href={mailto}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500 px-3.5 py-2 text-sm font-medium text-black transition-colors hover:bg-emerald-400"
+                >
+                  <Mail className="h-3.5 w-3.5" aria-hidden />
+                  Open in your mail app
+                </a>
+                <CopyEmailButton email={CONTACT_EMAIL} />
+              </div>
+            </div>
+
+            <p className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
+              <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+              This is an independent project, so replies are best-effort — usually within
+              a few days. Including your browser and the market you were viewing makes
+              bugs much faster to fix.
+            </p>
           </div>
         </div>
 
         {/* guidance */}
         <div className="space-y-5">
           <div className="rounded-2xl border border-border bg-card p-6">
-            <h2 className="text-sm font-semibold text-foreground">We can help with</h2>
-            <ul className="mt-3 space-y-3">
-              {GOOD_TOPICS.map((t) => {
+            <h2 className="text-sm font-semibold text-foreground">Good things to write about</h2>
+            <ul className="mt-4 space-y-4">
+              {TOPICS.map((t) => {
                 const Icon = t.icon;
                 return (
-                  <li key={t.text} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <Icon className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
-                    {t.text}
+                  <li key={t.title} className="flex items-start gap-3">
+                    <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500/20 to-cyan-500/10 text-emerald-500">
+                      <Icon className="h-4 w-4" aria-hidden />
+                    </span>
+                    <span>
+                      <span className="block text-sm font-medium text-foreground">{t.title}</span>
+                      <span className="block text-sm text-muted-foreground">{t.body}</span>
+                    </span>
                   </li>
                 );
               })}
