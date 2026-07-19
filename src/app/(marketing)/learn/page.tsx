@@ -11,12 +11,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/learn" },
 };
 
-const dateFmt = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
-
 export default function LearnIndexPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 py-16">
@@ -48,7 +42,7 @@ export default function LearnIndexPage() {
             </div>
             <div className="flex flex-1 flex-col p-5">
               <div className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground">
-                <span>{dateFmt.format(new Date(a.date))}</span>
+                <span>Evergreen guide</span>
                 <span aria-hidden>·</span>
                 <span>{a.readingMinutes} min read</span>
               </div>

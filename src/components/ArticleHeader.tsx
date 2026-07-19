@@ -4,12 +4,6 @@ import { learnArticles } from "@/app/(marketing)/learn/articles";
 import ArticleSchema from "@/components/ArticleSchema";
 import ThemeImage from "@/components/ThemeImage";
 
-const dateFmt = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-
 /**
  * Designed header for a /learn article: breadcrumb, title block, meta row,
  * lead paragraph and theme-aware cover — plus the Article JSON-LD.
@@ -43,13 +37,13 @@ export default function ArticleHeader({ slug }: { slug: string }) {
 
       <div className="mt-4 flex flex-wrap items-center gap-2 font-mono text-xs text-muted-foreground">
         <span className="rounded-full border border-border px-2.5 py-0.5">
-          {dateFmt.format(new Date(a.date))}
-        </span>
-        <span className="rounded-full border border-border px-2.5 py-0.5">
           {a.readingMinutes} min read
         </span>
         <span className="rounded-full border border-emerald-500/30 bg-emerald-500/5 px-2.5 py-0.5 text-emerald-600 dark:text-emerald-400">
           Order flow basics
+        </span>
+        <span className="rounded-full border border-border px-2.5 py-0.5">
+          Evergreen guide
         </span>
       </div>
 
