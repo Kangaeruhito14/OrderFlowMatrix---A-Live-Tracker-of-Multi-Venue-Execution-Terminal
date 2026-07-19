@@ -92,8 +92,19 @@ function toPairs(bases: string[]): MarketPair[] {
 
 const num = (v: unknown) => (typeof v === "string" ? parseFloat(v) : typeof v === "number" ? v : 0);
 
-/** Fetch top USDT pairs for one venue by 24h quote volume, with static fallback. */
+export interface TopPairsResult {
+  pairs: MarketPair[];
+  /** True when ranked live by 24h volume; false when the curated fallback was used. */
+  live: boolean;
+}
+
+/** Convenience wrapper returning just the pairs. */
 export async function getTopPairs(exchange: MarketExchange): Promise<MarketPair[]> {
+  return (await getTopPairsDetailed(exchange)).pairs;
+}
+
+/** Fetch top USDT pairs for one venue by 24h quote volume, with static fallback. */
+export async function getTopPairsDetailed(exchange: MarketExchange): Promise<TopPairsResult> {
   try {
     if (exchange === "binance") {
       const data = await safeJson("https://api.binance.com/api/v3/ticker/24hr");
@@ -103,7 +114,7 @@ export async function getTopPairs(exchange: MarketExchange): Promise<MarketPair[
           .filter((d) => !/(UP|DOWN|BULL|BEAR)USDT$/.test(d.symbol))
           .sort((a, b) => num(b.quoteVolume) - num(a.quoteVolume))
           .map((d) => (d.symbol as string).slice(0, -4));
-        if (bases.length) return toPairs(bases);
+        if (bases.length) return { pairs: toPairs(bases), live: true };
       }
     } else if (exchange === "bybit") {
       const data = await safeJson("https://api.bybit.com/v5/market/tickers?category=spot");
@@ -113,7 +124,7 @@ export async function getTopPairs(exchange: MarketExchange): Promise<MarketPair[
           .filter((d) => typeof d?.symbol === "string" && (d.symbol as string).endsWith("USDT"))
           .sort((a, b) => num(b.turnover24h) - num(a.turnover24h))
           .map((d) => (d.symbol as string).slice(0, -4));
-        if (bases.length) return toPairs(bases);
+        if (bases.length) return { pairs: toPairs(bases), live: true };
       }
     } else if (exchange === "okx") {
       const data = await safeJson("https://www.okx.com/api/v5/market/tickers?instType=SPOT");
@@ -123,7 +134,7 @@ export async function getTopPairs(exchange: MarketExchange): Promise<MarketPair[
           .filter((d) => typeof d?.instId === "string" && (d.instId as string).endsWith("-USDT"))
           .sort((a, b) => num(b.volCcy24h) - num(a.volCcy24h))
           .map((d) => (d.instId as string).split("-")[0]);
-        if (bases.length) return toPairs(bases);
+        if (bases.length) return { pairs: toPairs(bases), live: true };
       }
     } else if (exchange === "bitget") {
       const data = await safeJson("https://api.bitget.com/api/v2/spot/market/tickers");
@@ -133,7 +144,7 @@ export async function getTopPairs(exchange: MarketExchange): Promise<MarketPair[
           .filter((d) => typeof d?.symbol === "string" && (d.symbol as string).endsWith("USDT"))
           .sort((a, b) => num(b.usdtVolume) - num(a.usdtVolume))
           .map((d) => (d.symbol as string).slice(0, -4));
-        if (bases.length) return toPairs(bases);
+        if (bases.length) return { pairs: toPairs(bases), live: true };
       }
     } else if (exchange === "kucoin") {
       const data = await safeJson("https://api.kucoin.com/api/v1/market/allTickers");
@@ -143,13 +154,13 @@ export async function getTopPairs(exchange: MarketExchange): Promise<MarketPair[
           .filter((d) => typeof d?.symbol === "string" && (d.symbol as string).endsWith("-USDT"))
           .sort((a, b) => num(b.volValue) - num(a.volValue))
           .map((d) => (d.symbol as string).split("-")[0]);
-        if (bases.length) return toPairs(bases);
+        if (bases.length) return { pairs: toPairs(bases), live: true };
       }
     }
   } catch {
     // fall through to fallback
   }
-  return fallbackPairs();
+  return { pairs: fallbackPairs(), live: false };
 }
 
 /** Best-effort live summary for one symbol. Returns null on any failure. */

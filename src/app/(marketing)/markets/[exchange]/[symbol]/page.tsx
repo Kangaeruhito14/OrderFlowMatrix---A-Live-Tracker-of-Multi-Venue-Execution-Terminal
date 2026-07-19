@@ -42,7 +42,7 @@ export async function generateMetadata({
   const pair = `${parsed.base}-${parsed.quote}`;
   return {
     title: `${pair} order flow on ${label}`,
-    description: `Live ${pair} order flow on ${label}: trade matrix, order-book depth, CVD and block-trade alerts. Open the real-time terminal for ${parsed.base} on ${label}.`,
+    description: `Live ${pair} order flow on ${label}: live price, candlestick chart, order book, trade tape and block-trade detection. Open the real-time terminal for ${parsed.base} on ${label}.`,
     alternates: { canonical: `/markets/${exchange}/${pair}` },
   };
 }
@@ -102,8 +102,8 @@ export default async function MarketPage({ params }: { params: Promise<Params> }
         {pair} order flow on {label}
       </h1>
       <p className="mt-3 text-base text-muted-foreground">
-        Watch live {base}/{quote} trades on {label} — a real-time trade matrix, order-book
-        depth, CVD and block-trade alerts.
+        Watch live {base}/{quote} trades on {label} — real-time price, candlestick chart,
+        order book, trade tape and block-trade detection.
       </p>
 
       {summary ? (
@@ -163,7 +163,8 @@ export default async function MarketPage({ params }: { params: Promise<Params> }
 
       {summary ? (
         <p className="mt-2 font-mono text-[11px] text-muted-foreground">
-          Snapshot refreshes periodically. The terminal streams live.
+          24h snapshot from {label} public data, cached {new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "UTC", hour12: false }).format(new Date())}{" "}
+          UTC · auto-refreshes hourly · the terminal streams live.
         </p>
       ) : null}
 
