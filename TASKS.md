@@ -143,6 +143,24 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified
 - [x] 11 light-theme images reviewed & integrated (4 feature lights have painted backgrounds → framed treatment; optional re-prompts noted)
 - [x] Verified via DevTools MCP loop: terminal dark/light/mobile, article, about, back-button test PASSED, zero console errors; eslint 0 / tsc 0 / 11 tests / build green
 
+### 8d — Integrity & connection fixes  ✅ DONE
+- [x] Terminal reconnected to the site (shared header/footer via terminal layout)
+- [x] "N" dev badge disabled entirely (`devIndicators: false`; never existed in production)
+- [x] Markets honesty: per-venue "top N by 24h volume" vs "curated majors · live ranking unavailable" labels + "refreshed HH:MM UTC · auto-updates hourly" stamps (hub + detail pages)
+- [x] Waitlist REMOVED (no account/database burden); /alerts is now **Live Market Pulse** — automated 24h top gainers/losers/volume leaders among liquid pairs (≥$5M volume filter), 5-min refresh, UTC stamp, source attribution; nav renamed Pulse
+- [x] Contact form REMOVED (no SMTP fakery); email-first design with fantasyfalcoon91@gmail.com, mail-app + copy buttons, honest reply expectations; Turnstile/webhook infra deleted; privacy policy updated
+- [x] Learn dates removed from UI (evergreen guides; accurate dates kept only in JSON-LD)
+- [x] Accuracy sweep: "alerts"→"detection/flags" wherever it implied notifications; llms.txt/llms-full.txt rewritten to current features (old text still described deleted watchlist/universe/comparison!); FAQ truthed; "150+ markets"→"100+ markets with live pages"; About depth claims scoped to reference feed
+- [x] Verified: eslint 0 / tsc 0 / 11 tests / build 157 routes; DevTools loop (terminal+header, Pulse live data, contact, markets stamps) — zero console errors
+
+### Decision: staying on Next.js (not migrating to Astro)
+SEO surface is already complete and server-rendered: sitemap.xml, robots.txt, canonical URLs,
+per-page metadata, OpenGraph/Twitter cards, JSON-LD (Organization/WebSite/SoftwareApplication/
+Article/FAQ/DefinedTermSet/Breadcrumb), llms.txt + llms-full.txt. Astro's SEO benefit over
+this setup is ~zero (both ship prerendered HTML; Google ranks content, not frameworks), while
+a migration would rewrite a working live-WebSocket product for weeks. Revisit only if a
+measured crawl/CWV problem appears after deployment.
+
 ## 🎉 Phases 0–7 complete
 Decommission + security → branding → content/trust pages → Learn content → programmatic
 market pages + technical SEO → LLM-SEO → performance & tests → commercialization scaffolding.
