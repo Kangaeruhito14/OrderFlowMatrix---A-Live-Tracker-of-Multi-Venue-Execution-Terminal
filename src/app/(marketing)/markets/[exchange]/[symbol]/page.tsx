@@ -11,6 +11,7 @@ import {
   type MarketExchange,
 } from "@/lib/markets";
 import JsonLd from "@/components/JsonLd";
+import { VENUES } from "@/lib/venues";
 
 export const revalidate = 3600;
 export const dynamicParams = true; // long-tail symbols render on-demand
@@ -138,9 +139,26 @@ export default async function MarketPage({ params }: { params: Promise<Params> }
           </div>
         </div>
       ) : (
-        <p className="mt-8 rounded-lg border border-border bg-card p-4 text-sm text-muted-foreground">
-          Live snapshot unavailable right now — open the terminal for the real-time feed.
-        </p>
+        <div className="mt-8 rounded-xl border border-amber-500/30 bg-amber-500/5 p-5">
+          <p className="text-sm font-semibold text-foreground">
+            We can&apos;t retrieve live {base}/{quote} data from {label} right now
+          </p>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Our network is currently unable to reach {label}&apos;s public data feed for
+            this specific market — some venues restrict access by region, and not every
+            coin trades on every venue. For the latest {base} price and activity, please
+            check this market directly on {label}&apos;s official site, or try one of the
+            other venues below.
+          </p>
+          <a
+            href={VENUES[ex].tradeUrl(base, quote)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3.5 py-2 text-sm text-foreground transition-colors hover:border-emerald-500/40"
+          >
+            View {base}/{quote} on {label} ↗
+          </a>
+        </div>
       )}
 
       {summary ? (
