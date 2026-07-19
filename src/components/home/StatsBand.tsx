@@ -17,7 +17,7 @@ interface Stat {
 
 const STATS: Stat[] = [
   { value: 5, label: "exchanges streamed live" },
-  { value: 150, suffix: "+", label: "markets tracked" },
+  { value: 100, suffix: "+", label: "markets with live pages" },
   { value: null, display: "24/7", label: "real-time streaming" },
   { value: null, display: "$0", label: "free · no sign-up" },
 ];

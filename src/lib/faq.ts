@@ -11,7 +11,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "What is Order Flow Matrix?",
     answer:
-      "Order Flow Matrix is a real-time crypto order-flow terminal. It streams and visualizes live trades across multiple exchanges in one dense interface — a trade matrix, order-book depth, candlesticks, CVD and block-trade alerts.",
+      "Order Flow Matrix is a real-time crypto order-flow terminal. Each market gets a live per-coin dashboard — streaming price, candlestick chart, order-book depth, a live trade tape, order-flow analytics (CVD, buy/sell pressure) and block-trade detection.",
   },
   {
     question: "Is it free to use?",
@@ -41,7 +41,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Can I track coins other than BTC?",
     answer:
-      "Yes. You can browse and search a broad universe of USDT pairs per venue, switch markets quickly, and open any supported symbol in the terminal.",
+      "Yes. The terminal has a one-click picker for major coins, the Markets pages list the most active USDT pairs on each venue, and any supported symbol can be opened directly via the terminal URL.",
   },
   {
     question: "Is this financial advice?",

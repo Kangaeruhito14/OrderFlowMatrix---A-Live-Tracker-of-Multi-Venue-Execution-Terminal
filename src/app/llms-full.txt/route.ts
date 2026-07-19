@@ -16,7 +16,7 @@ export function GET() {
     "> A live tracker of multi-venue crypto execution flow. A real-time order-flow terminal that streams and visualizes live trades across multiple exchanges in one dense interface.",
     "",
     "## About",
-    "Order Flow Matrix connects to public exchange market-data feeds and renders live trades in a single dark terminal: a trade matrix, an order-book depth ladder, candlesticks with a volume profile, cumulative volume delta (CVD), block-trade alerts, a market-universe browser, a watchlist, and a cross-venue comparison mode. It is free, requires no account or API key, and is built on public data. It is an informational and educational tool, not financial advice, and not co-located institutional infrastructure. Trade direction is inferred from each exchange's maker/taker flag and is therefore an approximation.",
+    "Order Flow Matrix connects to public exchange market-data feeds and renders each market in a live per-coin dashboard: streaming price, candlestick chart with volume, order-book depth, a live trade tape with inferred aggressor side, rolling order-flow analytics (cumulative volume delta, buy/sell pressure, average trade size) and live block-trade detection. A Market Pulse page shows an automated snapshot of 24h top gainers, losers and volume leaders among liquid pairs. It is free, requires no account or API key, and is built on public data. It is an informational and educational tool, not financial advice, and not co-located institutional infrastructure. Trade direction is inferred from each exchange's maker/taker flag and is therefore an approximation.",
     "",
     "## Supported exchanges",
     ...MARKET_EXCHANGES.map((e) => `- ${EXCHANGE_LABELS[e]}`),

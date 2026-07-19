@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s · Order Flow Matrix",
   },
   description:
-    "A real-time crypto order-flow terminal that streams and visualizes live trades across Binance, Bybit, OKX, Bitget and KuCoin — trade matrix, order-book depth, CVD and block-trade alerts.",
+    "A real-time crypto order-flow terminal that streams and visualizes live trades across Binance, Bybit, OKX, Bitget and KuCoin — trade matrix, order-book depth, CVD and live block-trade detection.",
   applicationName: "Order Flow Matrix",
   keywords: [
     "order flow",

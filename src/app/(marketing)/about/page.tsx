@@ -47,7 +47,7 @@ const CAPABILITIES = [
   {
     icon: Activity,
     title: "Live order flow",
-    body: "Real-time trades, order-book depth, CVD and block-trade detection for every tracked market.",
+    body: "Real-time trades, CVD and block-trade detection for every tracked market, plus reference order-book depth and candles.",
   },
   {
     icon: Layers,
@@ -89,8 +89,8 @@ export default function AboutPage() {
             </h1>
             <p className="mt-4 max-w-xl text-pretty text-lg text-muted-foreground">
               Order Flow Matrix is a live tracker of multi-venue crypto execution flow —
-              every trade, every book level, every imbalance, streamed from five exchanges
-              into one honest interface.
+              live trades from five exchanges, with reference depth, candles and
+              order-flow analytics, in one honest interface.
             </p>
           </Reveal>
         </div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px px-5 py-10 text-center sm:grid-cols-4">
           {[
             ["5", "exchanges streamed"],
-            ["150+", "markets tracked"],
+            ["100+", "markets with live pages"],
             ["24/7", "live data"],
             ["$0", "to use"],
           ].map(([v, l]) => (

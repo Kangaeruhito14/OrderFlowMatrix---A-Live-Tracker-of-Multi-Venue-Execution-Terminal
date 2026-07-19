@@ -15,7 +15,7 @@ import { learnArticles } from "./learn/articles";
 export const metadata: Metadata = {
   title: { absolute: "Order Flow Matrix — Live Multi-Venue Crypto Execution Terminal" },
   description:
-    "Watch live crypto order flow across Binance, Bybit, OKX, Bitget and KuCoin in one dense terminal — trade matrix, order-book depth, candlesticks, CVD and block-trade alerts.",
+    "Watch live crypto order flow across Binance, Bybit, OKX, Bitget and KuCoin in one dense terminal — trade matrix, order-book depth, candlesticks, CVD and live block-trade detection.",
   alternates: { canonical: "/" },
 };
 
@@ -43,8 +43,8 @@ const SPOTLIGHTS = [
     image: "/images/features/alerts.png",
     imageLight: "/images/features/alerts-light.png",
     alt: "One glowing block standing out from muted blocks on a data conveyor",
-    title: "CVD & Block-Trade Alerts",
-    body: "Cumulative volume delta tracks who's really in control, and block alerts fire when whale-sized prints cross your per-symbol threshold.",
+    title: "CVD & Block-Trade Detection",
+    body: "Cumulative volume delta tracks who's really in control, and whale-sized prints are flagged live the moment they cross the per-market block threshold.",
     link: { href: "/learn/block-trades-and-whale-detection", label: "Whale detection guide" },
   },
   {
@@ -109,7 +109,7 @@ export default function HomePage() {
             <Reveal delay={0.16}>
               <p className="mt-5 max-w-lg text-pretty text-lg text-muted-foreground">
                 Order Flow Matrix streams every trade from Binance, Bybit, OKX, Bitget and
-                KuCoin into one terminal — trade matrix, depth ladder, CVD and whale alerts,
+                KuCoin into one terminal — trade matrix, depth ladder, CVD and whale-trade flags,
                 all from free public data.
               </p>
             </Reveal>
@@ -173,7 +173,7 @@ export default function HomePage() {
               A terminal, not a widget
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-muted-foreground">
-              Trade matrix, depth, candles, CVD and alerts — one dense surface engineered
+              Trade matrix, depth, candles, CVD and block flags — one dense surface engineered
               for reading markets under pressure.
             </p>
           </Reveal>

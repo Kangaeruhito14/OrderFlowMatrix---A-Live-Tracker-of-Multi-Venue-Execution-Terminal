@@ -10,11 +10,12 @@ export function GET() {
   const lines = [
     "# Order Flow Matrix",
     "",
-    "> A live tracker of multi-venue crypto execution flow: a real-time order-flow terminal that streams trades across Binance, Bybit, OKX, Bitget and KuCoin — live trade matrix, order-book depth, CVD and block-trade alerts. All data is public exchange data. Not financial advice.",
+    "> A live tracker of multi-venue crypto execution flow: a real-time order-flow terminal that streams trades across Binance, Bybit, OKX, Bitget and KuCoin — live per-coin dashboard with price, candlestick chart, order book, trade tape, CVD and block-trade detection. All data is public exchange data. Not financial advice.",
     "",
     "## Start here",
     `- [Live Terminal](${siteUrl}/terminal): real-time multi-exchange order-flow terminal`,
     `- [Markets](${siteUrl}/markets): browse the most active pairs per venue`,
+    `- [Market Pulse](${siteUrl}/alerts): automated live snapshot of 24h gainers, losers and volume leaders`,
     "",
     "## Learn",
     ...learnArticles.map((a) => `- [${a.title}](${siteUrl}/learn/${a.slug}): ${a.description}`),

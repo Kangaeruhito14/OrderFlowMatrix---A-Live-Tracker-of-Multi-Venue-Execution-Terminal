@@ -12,7 +12,7 @@ const VENUES = [
   { name: "KuCoin", color: "#23af91" },
 ];
 
-const OUTPUTS = ["Trade Matrix", "Depth Ladder", "CVD", "Block Alerts"];
+const OUTPUTS = ["Trade Matrix", "Depth Ladder", "CVD", "Block Detection"];
 
 function FlowLine({ delay }: { delay: number }) {
   return (
