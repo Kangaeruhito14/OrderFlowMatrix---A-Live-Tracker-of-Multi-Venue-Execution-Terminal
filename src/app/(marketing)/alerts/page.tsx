@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  Bell,
-  Layers,
-  SlidersHorizontal,
-  Mail,
   Droplets,
   Flame,
   Landmark,
@@ -15,33 +11,15 @@ import {
   CalendarClock,
   Info,
 } from "lucide-react";
-import WaitlistForm from "@/components/marketing/WaitlistForm";
+import MarketPulse from "@/components/home/MarketPulse";
 import Reveal from "@/components/home/Reveal";
 
 export const metadata: Metadata = {
-  title: "Block-Trade Alerts",
+  title: "Live Market Pulse",
   description:
-    "Cross-venue block-trade alerts (coming soon) plus an honest primer on what commonly moves crypto markets — liquidity, liquidations, macro, listings, unlocks and more.",
+    "An automated live snapshot of notable 24h crypto moves — top gainers, losers and volume leaders — plus an honest primer on what commonly moves crypto markets.",
   alternates: { canonical: "/alerts" },
 };
-
-const FEATURES = [
-  {
-    icon: Layers,
-    title: "Cross-venue",
-    body: "Watch large prints across Binance, Bybit, OKX, Bitget and KuCoin from one place.",
-  },
-  {
-    icon: SlidersHorizontal,
-    title: "Per-symbol thresholds",
-    body: "Notional thresholds calibrated per market, so 'large' means large for that pair.",
-  },
-  {
-    icon: Bell,
-    title: "Delivered to you",
-    body: "Get alerts where you already are — planned for email and webhooks first.",
-  },
-];
 
 /** Honest, general education: common mechanics behind big crypto moves. */
 const MARKET_MOVERS = [
@@ -87,65 +65,12 @@ const MARKET_MOVERS = [
   },
 ];
 
-export default function AlertsPage() {
+export default function PulsePage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-16">
-      {/* Hero + waitlist */}
-      <div className="grid items-start gap-10 lg:grid-cols-[1.2fr_1fr]">
-        <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 font-mono text-xs text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-            Coming soon
-          </span>
-          <h1 className="mt-5 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Cross-venue block-trade alerts
-          </h1>
-          <p className="mt-3 max-w-xl text-pretty text-lg text-muted-foreground">
-            The terminal already flags{" "}
-            <Link
-              href="/learn/block-trades-and-whale-detection"
-              className="text-emerald-500 underline-offset-4 hover:underline"
-            >
-              block trades
-            </Link>{" "}
-            live. Next: a heads-up when whale-sized prints cross your threshold — without
-            staring at the tape all day.
-          </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            {FEATURES.map((f) => {
-              const Icon = f.icon;
-              return (
-                <div key={f.title} className="rounded-xl border border-border bg-card p-4">
-                  <Icon className="h-4.5 w-4.5 text-emerald-500" aria-hidden />
-                  <h2 className="mt-2.5 text-sm font-semibold text-foreground">{f.title}</h2>
-                  <p className="mt-1 text-xs text-muted-foreground">{f.body}</p>
-                </div>
-              );
-            })}
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-border bg-card p-6">
-            <div className="flex items-center gap-2 text-foreground">
-              <Mail className="h-4 w-4 text-emerald-500" aria-hidden />
-              <h2 className="text-base font-semibold">Join the waitlist</h2>
-            </div>
-            <p className="mt-2 text-sm text-muted-foreground">
-              No spam, no payment — just a heads-up when alerts go live, and a chance to
-              shape them.
-            </p>
-            <div className="mt-4">
-              <WaitlistForm />
-            </div>
-            <p className="mt-4 border-t border-border pt-3 text-xs text-muted-foreground">
-              Alerts are <strong className="text-foreground">data notifications</strong>,
-              not trade recommendations. We&apos;re not financial advisors and never tell
-              you to buy or sell.
-            </p>
-          </div>
-        </Reveal>
-      </div>
+      <Reveal>
+        <MarketPulse />
+      </Reveal>
 
       {/* Education: what moves markets */}
       <section className="mt-20">
@@ -154,7 +79,7 @@ export default function AlertsPage() {
             What commonly moves crypto markets
           </h2>
           <p className="mt-2 max-w-2xl text-muted-foreground">
-            Alerts make more sense when you know the mechanics behind big moves. These are
+            Big moves make more sense when you know the mechanics behind them. These are
             the usual suspects — general market knowledge, not predictions.
           </p>
         </Reveal>
@@ -179,14 +104,19 @@ export default function AlertsPage() {
           <div className="mt-8 flex items-start gap-3 rounded-xl border border-border bg-card p-5">
             <Info className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" aria-hidden />
             <p className="text-sm text-muted-foreground">
-              This is general market education, not financial advice. Markets can move for
-              reasons nobody predicted — including none of the above. Read the{" "}
+              Everything on this page is automated public data and general market
+              education — not financial advice, and not a recommendation to buy or sell
+              anything. Markets can move for reasons nobody predicted. Read the{" "}
               <Link href="/disclaimer" className="text-emerald-500 underline-offset-4 hover:underline">
                 disclaimer
               </Link>
-              , and learn the fundamentals in{" "}
+              , learn the fundamentals in{" "}
               <Link href="/learn" className="text-emerald-500 underline-offset-4 hover:underline">
                 the guides
+              </Link>
+              , and watch any market live in{" "}
+              <Link href="/terminal" className="text-emerald-500 underline-offset-4 hover:underline">
+                the terminal
               </Link>
               .
             </p>
