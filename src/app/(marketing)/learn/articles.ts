@@ -11,6 +11,8 @@ export interface LearnArticle {
   readingMinutes: number;
   /** Cover artwork under public/, 3:2-ish, dark-themed */
   cover: string;
+  /** Light-theme cover variant */
+  coverLight: string;
   coverAlt: string;
 }
 
@@ -23,6 +25,7 @@ export const learnArticles: LearnArticle[] = [
     date: "2026-06-21",
     readingMinutes: 6,
     cover: "/images/learn/what-is-order-flow.png",
+    coverLight: "/images/learn/what-is-order-flow-light.png",
     coverAlt: "Magnifying lens over a tape of green and red trade ticks",
   },
   {
@@ -33,6 +36,7 @@ export const learnArticles: LearnArticle[] = [
     date: "2026-06-21",
     readingMinutes: 6,
     cover: "/images/learn/cvd.png",
+    coverLight: "/images/learn/cvd-light.png",
     coverAlt: "Emerald CVD line over volume bars with a highlighted divergence",
   },
   {
@@ -43,6 +47,7 @@ export const learnArticles: LearnArticle[] = [
     date: "2026-06-21",
     readingMinutes: 5,
     cover: "/images/learn/trade-matrix.png",
+    coverLight: "/images/learn/trade-matrix-light.png",
     coverAlt: "Angled dark table of live market rows with green and red highlights",
   },
   {
@@ -53,6 +58,7 @@ export const learnArticles: LearnArticle[] = [
     date: "2026-06-21",
     readingMinutes: 6,
     cover: "/images/learn/block-trades.png",
+    coverLight: "/images/learn/block-trades-light.png",
     coverAlt: "Whale silhouette formed from tiny candlesticks swimming through a data stream",
   },
 ];

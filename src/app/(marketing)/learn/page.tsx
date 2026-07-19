@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { BookOpen, ArrowRight } from "lucide-react";
+import ThemeImage from "@/components/ThemeImage";
 import { learnArticles } from "./articles";
 
 export const metadata: Metadata = {
@@ -36,8 +36,9 @@ export default function LearnIndexPage() {
             className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10"
           >
             <div className="overflow-hidden">
-              <Image
-                src={a.cover}
+              <ThemeImage
+                dark={a.cover}
+                light={a.coverLight}
                 alt={a.coverAlt}
                 width={1536}
                 height={1024}
