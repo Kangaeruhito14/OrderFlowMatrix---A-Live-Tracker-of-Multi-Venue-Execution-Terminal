@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { LineChart, Search, Star, Crosshair, ArrowRight } from "lucide-react";
+import ThemeImage from "@/components/ThemeImage";
 import TickerTape from "@/components/home/TickerTape";
 import HeroLiveTrades from "@/components/home/HeroLiveTrades";
 import LiveMarketTable from "@/components/home/LiveMarketTable";
@@ -24,6 +25,7 @@ const VENUES = ["Binance", "Bybit", "OKX", "Bitget", "KuCoin"];
 const SPOTLIGHTS = [
   {
     image: "/images/features/live-flow.png",
+    imageLight: "/images/features/live-flow-light.png",
     alt: "Stream of green and red trade blocks flowing into a structured matrix",
     title: "Live Trade Matrix",
     body: "A dense, color-coded blotter of every incoming trade — venue tag, price, size, notional and inferred aggressor side. Raw flow, made readable at a glance.",
@@ -31,6 +33,7 @@ const SPOTLIGHTS = [
   },
   {
     image: "/images/features/depth.png",
+    imageLight: "/images/features/depth-light.png",
     alt: "Order-book depth ladder with stacked green bids and red asks",
     title: "Order-Book Depth Ladder",
     body: "Real-time bid/ask depth with cumulative size, so you can see exactly where liquidity is stacked — and where it disappears.",
@@ -38,6 +41,7 @@ const SPOTLIGHTS = [
   },
   {
     image: "/images/features/alerts.png",
+    imageLight: "/images/features/alerts-light.png",
     alt: "One glowing block standing out from muted blocks on a data conveyor",
     title: "CVD & Block-Trade Alerts",
     body: "Cumulative volume delta tracks who's really in control, and block alerts fire when whale-sized prints cross your per-symbol threshold.",
@@ -45,6 +49,7 @@ const SPOTLIGHTS = [
   },
   {
     image: "/images/features/multi-venue.png",
+    imageLight: "/images/features/multi-venue-light.png",
     alt: "Five colored venue nodes linked to one central emerald node",
     title: "Five Venues, One View",
     body: "Binance, Bybit, OKX, Bitget and KuCoin — compare the same market side-by-side across exchanges, or lock onto a single venue.",
@@ -174,8 +179,9 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.12} y={40}>
             <div className="relative mx-auto mt-10 max-w-4xl">
-              <Image
-                src="/images/hero-terminal.png"
+              <ThemeImage
+                dark="/images/hero-terminal.png"
+                light="/images/hero-terminal-light.png"
                 alt="Angled product view of the Order Flow Matrix terminal with candlestick chart, order-book ladder and trade list"
                 width={1536}
                 height={1024}
@@ -235,16 +241,27 @@ export default function HomePage() {
                     i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
                   }`}
                 >
-                  {/* artwork on a dark screen panel (consistent in both themes) */}
-                  <div className="overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-[#0b101c] to-[#0e1626] p-6 shadow-xl shadow-emerald-500/5">
+                  {/* dark: transparent art floats directly on the page */}
+                  <div>
                     <Image
                       src={s.image}
                       alt={s.alt}
                       width={1536}
                       height={1024}
-                      className="h-auto w-full"
+                      className="hidden h-auto w-full drop-shadow-[0_18px_45px_rgba(16,185,129,0.16)] dark:block"
                       sizes="(max-width: 1024px) 100vw, 560px"
                     />
+                    {/* light: framed picture card (light art has a painted backdrop) */}
+                    <div className="overflow-hidden rounded-2xl border border-border shadow-lg shadow-slate-950/5 dark:hidden">
+                      <Image
+                        src={s.imageLight}
+                        alt={s.alt}
+                        width={1536}
+                        height={1024}
+                        className="h-auto w-full scale-[1.03]"
+                        sizes="(max-width: 1024px) 100vw, 560px"
+                      />
+                    </div>
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold tracking-tight text-foreground">
